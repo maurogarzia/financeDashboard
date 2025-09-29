@@ -1,0 +1,27 @@
+.containerPrincipal{
+    width: 100%;
+    background-color: rgb(90, 88, 88);
+    color: white;
+    height: 70px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.containerPrincipal h1{
+    padding: 10px;
+}
+.containerPrincipal p{
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    min-width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerPrincipal p:hover{
+    background-color: rgb(148, 146, 146);
+    transition: 0.3s ease;
+}
+
