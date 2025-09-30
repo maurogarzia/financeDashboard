@@ -1,5 +1,5 @@
 export interface IMovents{
-    date : Date,
+    date : string,
     description: string,
     type : string,
     amount: number

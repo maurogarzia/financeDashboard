@@ -16,13 +16,102 @@
     display: flex;
     justify-content: center;
 }
+.emptyMovents{
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 10px;
+}
 .containerData{
     font-size: 20px;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap:10px
+    gap:10px;
+    background-color: gray;
 }
 .containerMovents{
     padding: 10px;
 }
+.containerTitle{
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.containerTitle button{
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    color: rgb(68, 68, 68);
+}
+.containerTitle button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+.containerBalance{
+    display: flex;
+    align-items: center;
+    
+}
+.table{
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+.table thead{
+    background-color: rgb(140, 139, 139);
+}
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.income {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
+.expense {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+.containerButtons{
+    display: flex;
+    gap: 10px;
+}
+.containerButtons button{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.edit{
+    background-color: gray;
+    color: white;
+}
+.edit:hover{
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.delete{
+    color: white;
+    background-color: red;
+}
+.delete:hover{
+    color: red;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+
+
