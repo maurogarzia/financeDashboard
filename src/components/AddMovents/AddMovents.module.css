@@ -1,0 +1,51 @@
+.containerPrincipal{
+    background-color: rgb(68, 68, 68);
+    width: 100%;
+    height: 100%;
+    min-height: 665px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.containerPrincipal h1{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.contanierData{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    width: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    color: black;
+    gap: 10px;
+    
+}
+.form input{
+    padding: 10px;
+    border: gray 1px solid;
+    width: 100%;
+}
+.form select{
+    width: 100%;
+    padding: 10px;
+    border: gray 1px solid;
+}
+.form textarea{
+    padding: 10px;
+    border: gray 1px solid;
+}

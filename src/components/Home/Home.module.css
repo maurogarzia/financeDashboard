@@ -12,6 +12,9 @@
 .containerPrincipal h1{
     padding: 10px;
     margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .containerData{
     font-size: 20px;

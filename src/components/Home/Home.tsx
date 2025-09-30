@@ -4,6 +4,7 @@ import style from './Home.module.css'
 export const Home = () => {
 
     const {movents} = useStoreMovents()
+    
 
     return (
         <div className={style.containerPrincipal}>
