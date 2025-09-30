@@ -8,6 +8,8 @@
     padding: 10px;
     background-color: white;
     box-shadow: 5px 5px 10px rgb(73, 73, 73);
+    background-color: white;
+    width: 550px;
 }
 .containerPrincipal h1{
     color: black;
@@ -16,17 +18,14 @@
 }
 .contanierData{
     padding: 10px;
-    width: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .form{
-    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
     color: black;
     gap: 10px;
     
@@ -64,4 +63,14 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+}
+
+@media (max-width: 600px) {
+    .containerPrincipal{
+        width: 300px;
+    }
+    .containerPrincipal h1{
+        font-size: 22px;
+        display: flex;
+    }
 }

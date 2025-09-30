@@ -84,7 +84,7 @@ export const Home = () => {
                         <tbody>
                             {movents.map(m => (
                                     <tr>
-                                        <td>{m.date}</td>
+                                        <td className={style.date}>{m.date}</td>
                                         <td>{m.description}</td>
                                         <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                         <td>$ {m.amount}</td>
