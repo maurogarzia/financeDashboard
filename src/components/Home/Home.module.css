@@ -29,6 +29,22 @@
     gap:10px;
     background-color: gray;
 }
+.arrowGrren{
+    padding: 5px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+}
+.arrowRed{
+    padding: 5px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+}
 .containerMovents{
     padding: 10px;
 }
@@ -52,7 +68,7 @@
 .containerBalance{
     display: flex;
     align-items: center;
-    
+    gap: 10px;
 }
 .table{
     margin-top: 20px;

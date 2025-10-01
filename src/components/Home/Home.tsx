@@ -6,7 +6,7 @@ import useStoreModal from '../../store/useStoreModal'
 
 export const Home = () => {
 
-    const {movents} = useStoreMovents()
+    const {movents, deleteMovents} = useStoreMovents()
     const {openView} = useStoreModal()
 
     const [income, setIncome] = useState<number>(0)
@@ -43,6 +43,10 @@ export const Home = () => {
     },[movents])
     
 
+    const handleEdit = () => {
+
+    }
+
     return (
         <div className={style.containerPrincipal}>
             
@@ -55,8 +59,8 @@ export const Home = () => {
 
                 <div className={style.containerBalance}>
                     <p>Balance: $ {balance}</p>
-                    {balance > 0 && <div style={{"color" : "green", "display" : "flex", "alignItems" : "center"}}><span className="material-symbols-outlined">trending_up</span></div>}
-                    {balance < 0 && <div style={{"color" : "red", "display" : "flex", "alignItems" : "center"}}><span className="material-symbols-outlined">trending_down</span></div>}
+                    {balance > 0 && <div className={style.arrowGrren}><span className="material-symbols-outlined">trending_up</span></div>}
+                    {balance < 0 && <div className={style.arrowRed}><span className="material-symbols-outlined">trending_down</span></div>}
                 </div>
             </div>
 
@@ -90,10 +94,10 @@ export const Home = () => {
                                         <td>$ {m.amount}</td>
                                         <td>
                                             <div className={style.containerButtons}>
-                                                <button className={style.edit}>
+                                                <button className={style.edit} onClick={() => handleEdit()}>
                                                     <span className="material-symbols-outlined">edit</span>
                                                 </button>
-                                                <button className={style.delete}>
+                                                <button className={style.delete} onClick={() => deleteMovents(m.id)}>
                                                     <span className="material-symbols-outlined">delete</span>
                                                 </button>
                                             </div>

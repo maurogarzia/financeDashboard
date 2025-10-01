@@ -7,10 +7,11 @@ import useStoreModal from '../../store/useStoreModal'
 
 export const AddMovents = () => {
 
-    const {setMovents} = useStoreMovents()
+    const {addMovents} = useStoreMovents()
     const {closeView} = useStoreModal()
 
     const [movent, setMovent] = useState<IMovents>({
+        id: crypto.randomUUID(),
         date: '',
         description: '',
         type: '',
@@ -34,7 +35,7 @@ export const AddMovents = () => {
     const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault()
         try {
-            setMovents(movent)
+            addMovents(movent)
             alert("Se agrego el movimiento")
             closeView()
         } catch (error : any) {
@@ -61,7 +62,7 @@ export const AddMovents = () => {
                     </select>
 
                     <label htmlFor="">Monto</label>
-                    <input type="number" name="amount" required onChange={handleChange} />
+                    <input type="number" name="amount" required step={0.01} min={1} onChange={handleChange} />
 
                     <label htmlFor="">Descripción</label>
                     <textarea name="description" required onChange={handleChange}></textarea>
