@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import useStoreMovents from '../../store/useStoreMovents'
 import style from './Home.module.css'
 import useStoreModal from '../../store/useStoreModal'
+import type { IMovents } from '../../types/IMovents'
+import Swal from 'sweetalert2'
 
 
 export const Home = () => {
 
-    const {movents, deleteMovents} = useStoreMovents()
+    const {movents, deleteMovents, setActiveMovent} = useStoreMovents()
     const {openView} = useStoreModal()
 
     const [income, setIncome] = useState<number>(0)
@@ -43,8 +45,18 @@ export const Home = () => {
     },[movents])
     
 
-    const handleEdit = () => {
+    const handleEdit = (movent : IMovents) => {
+        setActiveMovent(movent)
+        openView()
+    }
 
+    const handleDelete = (id : string) => {
+        deleteMovents(id)
+        Swal.fire({
+            title : 'Eliminado',
+            text : 'Se eliminó el movimiento',
+            icon: 'success'
+        })
     }
 
     return (
@@ -94,10 +106,10 @@ export const Home = () => {
                                         <td>$ {m.amount}</td>
                                         <td>
                                             <div className={style.containerButtons}>
-                                                <button className={style.edit} onClick={() => handleEdit()}>
+                                                <button className={style.edit} onClick={() => handleEdit(m)}>
                                                     <span className="material-symbols-outlined">edit</span>
                                                 </button>
-                                                <button className={style.delete} onClick={() => deleteMovents(m.id)}>
+                                                <button className={style.delete} onClick={() => handleDelete(m.id)}>
                                                     <span className="material-symbols-outlined">delete</span>
                                                 </button>
                                             </div>
