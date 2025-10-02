@@ -33,6 +33,11 @@ export const AddMovents = () => {
         }
     }
 
+    const handelClose = () => {
+        closeView()
+        setActiveMovent(null)
+    }
+
     const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault()
         try {
@@ -85,8 +90,8 @@ export const AddMovents = () => {
                     <textarea name="description" required value={movent.description} onChange={handleChange}></textarea>
 
                     <div className={style.containerButtons}>
-                        <button type='button' onClick={closeView}>Cerrar</button>
-                        <button type='submit'>Crear</button>
+                        <button type='button' onClick={handelClose}>Cerrar</button>
+                        <button type='submit'>{activeMovent ? 'Editar' : 'Crear'}</button>
                     </div>
                 </form>
             </div>

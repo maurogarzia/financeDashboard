@@ -58,13 +58,13 @@ export const Home = () => {
                 <p>Gastos: $ {bills}</p>
 
                 <div className={style.containerBalance}>
-                    <p>Balance: $ {balance}</p>
+                    <p>Balance: $ {balance.toFixed(2)}</p>
                     {balance > 0 && <div className={style.arrowGrren}><span className="material-symbols-outlined">trending_up</span></div>}
                     {balance < 0 && <div className={style.arrowRed}><span className="material-symbols-outlined">trending_down</span></div>}
                 </div>
             </div>
 
-            {movents.length > 0 && <BalanceChart/> }
+            {movents.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }
             
 
             <hr />
@@ -72,8 +72,6 @@ export const Home = () => {
             {/* Tabla de movimientos */}
             <TableOfMovents/>
 
-        
-            
         </div>
     )
 }

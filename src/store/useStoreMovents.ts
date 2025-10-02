@@ -7,6 +7,8 @@ interface IUseStoreMovents{
     activeMovent : IMovents | null
     listExpenses : IMovents[] | []
     listIncome : IMovents[] | []
+    listAncient : IMovents[] | []
+    listRecent : IMovents[] | []
 
     setActiveMovent: (incommingMovent : IMovents | null) => void
     addMovents : (newMovent : IMovents) => void
@@ -14,6 +16,8 @@ interface IUseStoreMovents{
     editMovents: (id: string, newMovent : IMovents) => void
     setListExpenses : VoidFunction,
     setLisIncome : VoidFunction
+    setListRecent: VoidFunction
+    setListAncient : VoidFunction
 
 }
 
@@ -23,6 +27,8 @@ const useStoreMovents = create<IUseStoreMovents>()(
         activeMovent : null,
         listExpenses : [],
         listIncome : [],
+        listAncient: [],
+        listRecent: [],
 
         setActiveMovent: (incommingMovent) => set({activeMovent : incommingMovent}),
 
@@ -50,6 +56,18 @@ const useStoreMovents = create<IUseStoreMovents>()(
         setListExpenses : () => set((state) => ({
             listExpenses : state.movents.filter((i) => i.type === "gasto")
         })),
+
+        setListAncient: () => set((state) => ({
+            listAncient : state.movents.slice().sort((a,b) => {
+                return new Date(a.date).getTime() - new Date(b.date).getTime()
+            })
+        })),
+
+        setListRecent : () => set((state) => ({
+            listRecent : state.movents.slice().sort((a,b) => {
+                return new Date(b.date).getTime() - new Date(a.date).getTime()
+            })
+        }))
     }),
         {name : "movents-storage"}
     )

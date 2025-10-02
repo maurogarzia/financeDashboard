@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react'
 
 export const TableOfMovents = () => {
 
-    const {movents, setLisIncome, setListExpenses, listExpenses, listIncome, setActiveMovent, deleteMovents} = useStoreMovents()
+    const {
+        movents, setLisIncome, setListExpenses, listExpenses, listIncome, setActiveMovent, deleteMovents, setListAncient, setListRecent, listAncient, listRecent
+    } = useStoreMovents()
     const {openView} = useStoreModal()
 
     const [viewMovents, setViewMovents] = useState<string>('allsMovents')
@@ -15,7 +17,9 @@ export const TableOfMovents = () => {
     // UseEffect para los filtros de ingresos y gastos
     useEffect(() => {
         setLisIncome(),
-        setListExpenses()
+        setListExpenses(),
+        setListRecent(),
+        setListAncient()
     },[movents])
 
     const handleEdit = (movent : IMovents) => {
@@ -44,6 +48,8 @@ export const TableOfMovents = () => {
                         <button onClick={() => setViewMovents('allsMovents')}>Todos</button>
                         <button onClick={() => setViewMovents('incomes')}>Ingresos</button>
                         <button onClick={() => setViewMovents('expenses')}>Gastos</button>
+                        <button onClick={() => setViewMovents('ancient')}>Mas antiguo</button>
+                        <button onClick={() => setViewMovents('recent')}>Reciente</button>
                     </div>
                 </div>
 
@@ -118,6 +124,46 @@ export const TableOfMovents = () => {
                                 <td className={style.date}>{m.date}</td>
                                     <td>{m.description}</td>
                                     <td className={ style.expense}>{m.type}</td>
+                                    <td>$ {m.amount}</td>
+                                    <td>
+                                        <div className={style.containerButtons}>
+                                            <button className={style.edit} onClick={() => handleEdit(m)}>
+                                                <span className="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                                <span className="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                        ))}
+
+                        {/* Mas antiguo */}
+                        {viewMovents === 'ancient' && listAncient.map((m) => (
+                            <tr>
+                                <td className={style.date}>{m.date}</td>
+                                    <td>{m.description}</td>
+                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
+                                    <td>$ {m.amount}</td>
+                                    <td>
+                                        <div className={style.containerButtons}>
+                                            <button className={style.edit} onClick={() => handleEdit(m)}>
+                                                <span className="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                                <span className="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                        ))}
+
+                        {/* Mas reciente */}
+                        {viewMovents === 'recent' && listRecent.map((m) => (
+                            <tr>
+                                <td className={style.date}>{m.date}</td>
+                                    <td>{m.description}</td>
+                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
