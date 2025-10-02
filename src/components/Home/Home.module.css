@@ -83,6 +83,9 @@
 
 @media (max-width: 800px) {
 
+    .containerPrincipal{
+        min-height: 92.2vh;
+    }
     .table thead {
         display: none;
     }
