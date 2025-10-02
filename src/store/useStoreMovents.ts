@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { IMovents } from "../types/IMovents";
+import { persist } from "zustand/middleware";
 
 interface IUseStoreMovents{
     movents : IMovents[]
@@ -11,28 +12,34 @@ interface IUseStoreMovents{
     editMovents: (id: string, newMovent : IMovents) => void
 }
 
-const useStoreMovents = create<IUseStoreMovents>((set) => ({
-    movents : [],
-    activeMovent : null,
+const useStoreMovents = create<IUseStoreMovents>()(
+    persist((set) => ({
+        movents : [],
+        activeMovent : null,
 
-    setActiveMovent: (incommingMovent) => set({activeMovent : incommingMovent}),
+        setActiveMovent: (incommingMovent) => set({activeMovent : incommingMovent}),
 
-    addMovents : (newMovent) => set((state) => ({
-        movents : [...state.movents, newMovent],
-    })),
+        addMovents : (newMovent) => set((state) => ({
+            movents : [...state.movents, newMovent],
+        })),
 
-    deleteMovents : (id) => set((state) => ({
-        movents : state.movents.filter((f) => (
-            f.id !== id
-        ))
-    })),
+        deleteMovents : (id) => set((state) => ({
+            movents : state.movents.filter((f) => (
+                f.id !== id
+            ))
+        })),
 
 
-    editMovents: (id, newMovent) => set((state) => ({
-        movents : state.movents.map((m) => (
-            m.id === id ? newMovent : m
-        ))
-    }))
-}))
+        editMovents: (id, newMovent) => set((state) => ({
+            movents : state.movents.map((m) => (
+                m.id === id ? newMovent : m
+            ))
+        }))
+    }),
+        {name : "movents-storage"}
+    )
+    )
+
+
 
 export default useStoreMovents
