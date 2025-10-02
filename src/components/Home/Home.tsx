@@ -4,6 +4,7 @@ import style from './Home.module.css'
 import useStoreModal from '../../store/useStoreModal'
 import type { IMovents } from '../../types/IMovents'
 import Swal from 'sweetalert2'
+import { BalanceChart } from '../BalanceCharts/BalanceCharts'
 
 
 export const Home = () => {
@@ -75,6 +76,9 @@ export const Home = () => {
                     {balance < 0 && <div className={style.arrowRed}><span className="material-symbols-outlined">trending_down</span></div>}
                 </div>
             </div>
+
+            {movents.length > 0 && <BalanceChart/> }
+            
 
             <hr />
 
