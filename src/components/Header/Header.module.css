@@ -7,21 +7,12 @@
     display: flex;
     align-items: center;
     gap: 20px;
-}
-.containerPrincipal h1{
-    padding: 10px;
-}
-.containerPrincipal p{
-    font-size: 20px;
-    padding: 10px;
-    cursor: pointer;
-    min-width: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.containerPrincipal p:hover{
-    background-color: rgb(148, 146, 146);
-    transition: 0.3s ease;
+.containerPrincipal h1{
+    padding: 10px;
 }
+
 
