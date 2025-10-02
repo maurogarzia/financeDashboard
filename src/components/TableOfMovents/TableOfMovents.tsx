@@ -24,6 +24,7 @@ export const TableOfMovents = () => {
     },[movents])
 
 
+    // Barra de bsuqueda
     const listFilter = movents.filter((m) => {
         const term = search.toLocaleLowerCase()
         return (
