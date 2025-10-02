@@ -30,7 +30,8 @@ export const TableOfMovents = () => {
         return (
             m.description.toLocaleLowerCase().includes(term) || 
             m.type.toLocaleLowerCase().includes(term) || 
-            m.date.toLocaleLowerCase().includes(term)
+            m.date.toLocaleLowerCase().includes(term) || 
+            String(m.amount).toLocaleLowerCase().includes(term)
         )
     })
 
