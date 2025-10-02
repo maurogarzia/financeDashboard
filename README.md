@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Dashboard de Finanzas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Dashboard de Finanzas personal hecho en React + TypeScript.
+Permite registrar ingresos y gastos, mostrar balance, ver gráficos de torta y barras, y filtrar movimientos por fecha, tipo y búsqueda.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+La app está diseñada como Progressive Web App (PWA):
 
-## React Compiler
+Instalable en celular como app independiente.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Funciona offline gracias a localStorage y service worker.
 
-## Expanding the ESLint configuration
+Sin necesidad de backend, todos los datos se guardan localmente.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Tecnologías
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-React 
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+-TypeScript
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+-Vite
+
+-Zustand (estado global y persistente)
+
+-Recharts (gráficos)
+
+-SweetAlert2 (alertas)
+
+-Vite PWA Plugin (Progressive Web App)
+
+## Instalación
+1. Clonar repositorio
+```bash
+git clone https://github.com/maurogarzia/financeDashboard
+cd financedashboard
+```
+2. Instalar dependencias
+```bash
+npm install
+```
+3.Levantar desarrollo
+```bash
+npm run dev
+``` 
+4. Generar build (PWA activa)
+```bash
+npm run build
+```
+5. Previsualizar build
+```bash
+npm run preview
+```
+⚠️ Importante: la opción de “Agregar a pantalla de inicio” solo funciona en build, no en dev.
+
+## Uso en el teléfono
+1.Abrir la URL del build (Vercel) en el navegador del teléfono.
+
+2.Chrome Android: aparecerá el banner “Agregar a pantalla de inicio”.
+
+3.iOS Safari: usar Compartir → Agregar a pantalla de inicio.
+
+4.na vez instalada, la app funciona offline, usando los datos guardados en localStorage.
+
+## Estructura del proyecto
+
+```bash
+src/
+ ├─ components/         # Componentes React
+ │   ├─ AddMovents
+ │   ├─ BalanceCharts
+ │   ├─ Header
+ │   ├─ Home
+ │   ├─ TableOfMovents
+ │   └─ Home
+ ├─ Scrrens/
+ │   └─ MainScreen
+ ├─ store/              # Zustand stores
+ │   ├─ useStoreMovents.ts
+ │   └─ useStoreModal.ts
+ ├─ types/              # Interfaces TypeScript
+ │   └─ IMovents.ts
+ ├─ App.tsx
+ ├─ App.css
+ ├─ index.css
+ └─ main.tsx
+public/
+ └─ manifest.json       # Configuración PWA
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Vercel: https://finance-dashboard-ten-ruby.vercel.app/
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
