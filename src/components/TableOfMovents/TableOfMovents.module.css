@@ -1,0 +1,144 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    height: 100%;
+}
+.containerTitleAndSearch{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.containerTitle{
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+.buttons{
+    display: flex;
+    gap: 10px;
+}
+.buttons button{
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: gray;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttons button:hover{
+    background-color: white;
+    color: black;
+    transition: 0.3s ease;
+    cursor: pointer;
+    
+}
+.containerSearch{
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}
+.containerSearch input{
+    padding: 5px;
+    outline: none;
+}
+.table{
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+.table thead{
+    background-color: rgb(140, 139, 139);
+}
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.income {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
+.expense {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+.containerButtons{
+    display: flex;
+    gap: 10px;
+}
+.containerButtons button{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.edit{
+    background-color: gray;
+    color: white;
+}
+.edit:hover{
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.delete{
+    color: white;
+    background-color: red;
+}
+.delete:hover{
+    color: red;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+
+@media (max-width: 600px) {
+
+    .containerTitleAndSearch{
+        display: flex;
+        flex-direction: column;
+    }
+    .containerTitle{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .containerTitleAndSearch{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .table thead {
+        display: none;
+    }
+    .table tr{
+        border-bottom: 3px solid white;
+    }
+    .table td {
+        display: flex;
+        justify-content: center;
+        border: none;
+        padding: 8px 0;
+    }
+    .date{
+        background-color: gray;
+        width: 100%;
+    }
+    
+    
+}

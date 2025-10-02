@@ -70,64 +70,8 @@
     align-items: center;
     gap: 10px;
 }
-.table{
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
-}
-.table thead{
-    background-color: rgb(140, 139, 139);
-}
-.table th,
-.table td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-}
 
-.income {
-    background-color: green;
-    color: white;
-    font-weight: bold;
-}
 
-.expense {
-    background-color: red;
-    color: white;
-    font-weight: bold;
-}
-.containerButtons{
-    display: flex;
-    gap: 10px;
-}
-.containerButtons button{
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-}
-.edit{
-    background-color: gray;
-    color: white;
-}
-.edit:hover{
-    background-color: white;
-    color: gray;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-.delete{
-    color: white;
-    background-color: red;
-}
-.delete:hover{
-    color: red;
-    background-color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
 
 @media (max-width: 600px) {
 

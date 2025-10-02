@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import useStoreMovents from '../../store/useStoreMovents'
 import style from './Home.module.css'
-import useStoreModal from '../../store/useStoreModal'
-import type { IMovents } from '../../types/IMovents'
-import Swal from 'sweetalert2'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
+import { TableOfMovents } from '../TableOfMovents/TableOfMovents'
 
 
 export const Home = () => {
 
-    const {movents, deleteMovents, setActiveMovent} = useStoreMovents()
-    const {openView} = useStoreModal()
+    const {movents} = useStoreMovents()
+    
 
     const [income, setIncome] = useState<number>(0)
     const [bills, setBills] = useState<number>(0)
@@ -44,21 +42,10 @@ export const Home = () => {
 
         calculate()
     },[movents])
+
+    
     
 
-    const handleEdit = (movent : IMovents) => {
-        setActiveMovent(movent)
-        openView()
-    }
-
-    const handleDelete = (id : string) => {
-        deleteMovents(id)
-        Swal.fire({
-            title : 'Eliminado',
-            text : 'Se eliminó el movimiento',
-            icon: 'success'
-        })
-    }
 
     return (
         <div className={style.containerPrincipal}>
@@ -82,48 +69,10 @@ export const Home = () => {
 
             <hr />
 
-            <div className={style.containerMovents}>
-                <div className={style.containerTitle}>
-                    <h2>Movimientos</h2>
-                    <button onClick={openView}>Agregar Movimiento</button>
-                </div>
+            {/* Tabla de movimientos */}
+            <TableOfMovents/>
 
-                {movents.length === 0 ? <div className={style.emptyMovents}><p>No hay movimientos registrados</p></div> : (
-
-                    <table className={style.table}>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Descripcion</th>
-                                <th>Tipo</th>
-                                <th>Monto</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {movents.map(m => (
-                                    <tr>
-                                        <td className={style.date}>{m.date}</td>
-                                        <td>{m.description}</td>
-                                        <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
-                                        <td>$ {m.amount}</td>
-                                        <td>
-                                            <div className={style.containerButtons}>
-                                                <button className={style.edit} onClick={() => handleEdit(m)}>
-                                                    <span className="material-symbols-outlined">edit</span>
-                                                </button>
-                                                <button className={style.delete} onClick={() => handleDelete(m.id)}>
-                                                    <span className="material-symbols-outlined">delete</span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) }
-            </div>
+        
             
         </div>
     )
