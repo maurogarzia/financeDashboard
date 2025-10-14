@@ -67,40 +67,40 @@ export const SummaryOfMonths = () => {
 
                                 {
                                     monthMovent.map((movent) => (
-                                        <div className={style.moventsOfMonth}>
                                             
-                                            <table className={style.table}>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Descripcion</th>
-                                                        <th>Tipo</th>
-                                                        <th>Monto</th>
-                                                        <th>Opciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td className={style.date}>{movent.date}</td>
-                                                        <td>{movent.description}</td>
-                                                        <td className={movent.type === 'ingreso' ? style.income : style.expense}>{movent.type}</td>
-                                                        <td>{movent.amount}</td>
-                                                        <td>
-                                                            <div className={style.containerButtons}>
-                                                                <button className={style.edit} onClick={() => handleEdit(movent)}>
-                                                                    <span className="material-symbols-outlined">edit</span>
-                                                                </button>
+                                        <table className={style.table}>
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Tipo</th>
+                                                    <th>Monto</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td className={style.date}>{movent.date}</td>
+                                                    <td>{movent.description}</td>
+                                                    <td className={movent.type === 'ingreso' ? style.income : style.expense}>{movent.type}</td>
+                                                    <td>{movent.amount}</td>
+                                                    <td>
 
-                                                                <button className={style.delete} onClick={() => handleDelete(movent.id)}>
-                                                                    <span className="material-symbols-outlined">delete</span>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                                        <div className={style.containerButtons}>
+                                                            <button className={style.edit} onClick={() => handleEdit(movent)}>
+                                                                <span className="material-symbols-outlined">edit</span>
+                                                            </button>
 
-                                            </table>
-                                        </div>
+                                                            <button className={style.delete} onClick={() => handleDelete(movent.id)}>
+                                                                <span className="material-symbols-outlined">delete</span>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
                                     ))
                                 }
                             </div>

@@ -100,3 +100,31 @@
     cursor: pointer;
     transition: 0.3s ease;
 }
+
+@media (max-width: 800px) {
+    .moventsOfMonth{
+        width: 100%;
+    }
+    .resume{
+        margin-bottom: 10px;
+    }
+    .table thead {
+        display: none;
+    }
+    .table tr{
+        border-bottom: 3px solid white;
+    }
+    .table td {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border: none;
+        padding: 8px 0;
+    }
+    .date{
+        background-color: gray;
+        width: 100px;
+
+    }
+    
+}
