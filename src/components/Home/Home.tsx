@@ -52,7 +52,7 @@ export const Home = () => {
     return (
         <div className={style.containerPrincipal}>
             
-            <h1>Balance General del Mes</h1>
+            <h1>Balance General</h1>
 
             <div className={style.containerData}>
                 <p>Ingresos: $ {income}</p>

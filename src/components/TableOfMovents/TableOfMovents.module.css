@@ -8,6 +8,7 @@
 }
 .containerTitleAndSearch{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     
@@ -15,6 +16,9 @@
 .containerTitle{
     padding: 10px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     font-size: 20px;
 }

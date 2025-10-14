@@ -9,6 +9,7 @@ interface IUseStoreMovents{
     listIncome : IMovents[] | []
     listAncient : IMovents[] | []
     listRecent : IMovents[] | []
+    listMoventsOfMonth: IMovents[] | []
 
     setActiveMovent: (incommingMovent : IMovents | null) => void
     addMovents : (newMovent : IMovents) => void
@@ -18,6 +19,7 @@ interface IUseStoreMovents{
     setLisIncome : VoidFunction
     setListRecent: VoidFunction
     setListAncient : VoidFunction
+    setListMoventsOfMonths : () => void
 
 }
 
@@ -29,6 +31,7 @@ const useStoreMovents = create<IUseStoreMovents>()(
         listIncome : [],
         listAncient: [],
         listRecent: [],
+        listMoventsOfMonth: [],
 
         setActiveMovent: (incommingMovent) => set({activeMovent : incommingMovent}),
 
@@ -50,24 +53,33 @@ const useStoreMovents = create<IUseStoreMovents>()(
         })),
 
         setLisIncome : () => set((state) => ({
-            listIncome : state.movents.filter((i) => i.type === "ingreso")
+            listIncome : state.listMoventsOfMonth.filter((i) => i.type === "ingreso")
         })),
 
         setListExpenses : () => set((state) => ({
-            listExpenses : state.movents.filter((i) => i.type === "gasto")
+            listExpenses : state.listMoventsOfMonth.filter((i) => i.type === "gasto")
         })),
 
         setListAncient: () => set((state) => ({
-            listAncient : state.movents.slice().sort((a,b) => {
+            listAncient : state.listMoventsOfMonth.slice().sort((a,b) => {
                 return new Date(a.date).getTime() - new Date(b.date).getTime()
             })
         })),
 
         setListRecent : () => set((state) => ({
-            listRecent : state.movents.slice().sort((a,b) => {
+            listRecent : state.listMoventsOfMonth.slice().sort((a,b) => {
                 return new Date(b.date).getTime() - new Date(a.date).getTime()
             })
-        }))
+        })),
+
+        setListMoventsOfMonths : () => {
+            const month = new Date().toISOString().split('T')[0].split('-')[1]
+            set((state) => ({
+                listMoventsOfMonth: state.movents.filter((f) => 
+                    f.date.split('-')[1] === month
+                )
+            }))
+        }
     }),
         {name : "movents-storage"}
     )

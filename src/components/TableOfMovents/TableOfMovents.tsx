@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 export const TableOfMovents = () => {
 
     const {
-        movents, setLisIncome, setListExpenses, listExpenses, listIncome, setActiveMovent, deleteMovents, setListAncient, setListRecent, listAncient, listRecent
+        movents, setLisIncome, setListExpenses, listExpenses, listIncome, setActiveMovent, deleteMovents, setListAncient, setListRecent, listAncient, listRecent, listMoventsOfMonth, setListMoventsOfMonths
     } = useStoreMovents()
     const {openView} = useStoreModal()
 
@@ -20,7 +20,8 @@ export const TableOfMovents = () => {
         setLisIncome(),
         setListExpenses(),
         setListRecent(),
-        setListAncient()
+        setListAncient(),
+        setListMoventsOfMonths()
     },[movents])
 
 
@@ -33,9 +34,8 @@ export const TableOfMovents = () => {
             m.date.toLocaleLowerCase().includes(term) || 
             String(m.amount).toLocaleLowerCase().includes(term)
         )
-    })
-
-
+    })    
+    
     const handleEdit = (movent : IMovents) => {
         setActiveMovent(movent)
         openView()
@@ -55,7 +55,14 @@ export const TableOfMovents = () => {
             <div className={style.containerTitleAndSearch}>
 
                 <div className={style.containerTitle}>
-                    <h2>Movimientos</h2>
+                    <h2>Movimientos del mes</h2>
+                    <form className={style.containerSearch}>
+                        <input type="text" placeholder='Buscar' value={search} onChange={(e) => setSearch(e.target.value)}/>
+                        <button type='submit'>
+                            <span className="material-symbols-outlined">search</span>
+                        </button>
+                        
+                    </form>
                     <div className={style.buttons}>
 
                         <button onClick={() => {openView()}}>Agregar Movimiento</button>
@@ -67,18 +74,11 @@ export const TableOfMovents = () => {
                     </div>
                 </div>
 
-                <form className={style.containerSearch}>
-                    <input type="text" placeholder='Buscar' value={search} onChange={(e) => setSearch(e.target.value)}/>
-                    <button type='submit'>
-                        <span className="material-symbols-outlined">search</span>
-                    </button>
-                    
-                </form>
             </div>
 
 
             <div className={style.containerMovents}>
-                {movents.length < 1 && <p>No hay movimientos registrados</p>}
+                {listMoventsOfMonth.length < 1 && <p>No hay movimientos registrados</p>}
 
                 <table className={style.table}>
                     <thead>
@@ -95,7 +95,7 @@ export const TableOfMovents = () => {
 
                         {/* Todos los movimientos */}
 
-                        {(viewMovents === 'allsMovents' && search === '') && movents.map((m) => (
+                        {(viewMovents === 'allsMovents' && search === '') && listMoventsOfMonth.map((m) => (
                             <tr>
                                 <td className={style.date}>{m.date}</td>
                                     <td>{m.description}</td>
