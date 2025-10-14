@@ -3,11 +3,13 @@ import useStoreMovents from '../../store/useStoreMovents'
 import style from './Home.module.css'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
 import { TableOfMovents } from '../TableOfMovents/TableOfMovents'
+import useStoreModal from '../../store/useStoreModal'
 
 
 export const Home = () => {
 
     const {movents} = useStoreMovents()
+    const {setViewScreen} = useStoreModal()
     
 
     const [income, setIncome] = useState<number>(0)
@@ -50,7 +52,7 @@ export const Home = () => {
     return (
         <div className={style.containerPrincipal}>
             
-            <h1>Balance General</h1>
+            <h1>Balance General del Mes</h1>
 
             <div className={style.containerData}>
                 <p>Ingresos: $ {income}</p>
@@ -62,6 +64,10 @@ export const Home = () => {
                     {balance > 0 && <div className={style.arrowGrren}><span className="material-symbols-outlined">trending_up</span></div>}
                     {balance < 0 && <div className={style.arrowRed}><span className="material-symbols-outlined">trending_down</span></div>}
                 </div>
+            </div>
+
+            <div className={style.summaryButton}>
+                <button onClick={() => setViewScreen(true)}>Resumenes</button>
             </div>
 
             {movents.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }

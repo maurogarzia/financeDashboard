@@ -1,0 +1,30 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: column;
+    min-width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(68, 68, 68);
+}
+.backButton{
+    padding: 10px;
+    width: 100%;
+}
+.backButton button{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.backButton button:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+.modalBackdrop{
+    position: fixed;
+    background-color: #00000073;
+    width: 100%;
+    height: 100%;
+}
