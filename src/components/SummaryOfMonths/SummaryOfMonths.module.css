@@ -1,0 +1,102 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.containerMonths{
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 10px;
+    border-radius: 10px;
+}
+.title{
+    background-color: rgb(31, 30, 30);
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+.month{
+    padding: 10px;
+    background-color: rgb(31, 30, 30);
+    border-radius: 10px;
+}
+.moventsOfMonth{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.resume{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    gap: 10px;
+}
+.table{
+    
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+.table thead{
+    background-color: rgb(140, 139, 139);
+}
+.table th,
+.table td {
+    width: 100px;
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+}
+.income {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+.expense {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+.containerButtons{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.containerButtons button{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.edit{
+    background-color: gray;
+    color: white;
+}
+.edit:hover{
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.delete{
+    color: white;
+    background-color: red;
+}
+.delete:hover{
+    color: red;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
