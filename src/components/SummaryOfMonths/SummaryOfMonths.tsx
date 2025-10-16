@@ -5,6 +5,7 @@ import type { IMovents } from '../../types/IMovents'
 import style from './SummaryOfMonths.module.css'
 
 import { calculate } from '../../utils/calculate'
+import { DownloadMovent } from '../DownloadMovent/DownloadMovent'
 
 export const SummaryOfMonths = () => {
 
@@ -63,6 +64,10 @@ export const SummaryOfMonths = () => {
                                     <p>Ingresos: $ {income}</p>
                                     <p>Gastos : $ {expense}</p>
                                     <p>Balance: $ {balance}</p>
+                                    <div style={{'width' : '100%', 'display' : 'flex', 'justifyContent' : 'center'}}>
+                                        <DownloadMovent resume={monthMovent} income={income} expense={expense} balance={balance}/>
+                                    </div>
+                                    
                                 </div>
 
                                 {
