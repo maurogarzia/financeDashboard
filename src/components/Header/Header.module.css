@@ -4,12 +4,10 @@
     color: white;
     height: 70px;
     padding: 10px;
-    display: flex;
-    align-items: center;
     gap: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    position: fixed;
+    z-index: 10;
 }
 .containerPrincipal h1{
     padding: 10px;
