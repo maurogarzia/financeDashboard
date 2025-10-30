@@ -11,13 +11,13 @@ export const SummaryScreen = () =>{
     return (
         <div className={style.containerPrincipal}>
             <Header/>
-            {view && <div className={style.modalBackdrop}><AddMovents/></div>}
             <div className={style.backButton}>
                 <button onClick={() => setViewScreen(false)}>
                     <span className="material-symbols-outlined">arrow_back</span>
                 </button>
             <SummaryOfMonths/>
             </div>
+            {view && <div className={style.modalBackdrop}><AddMovents/></div>}
         </div>
     )
 }

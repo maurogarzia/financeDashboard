@@ -10,11 +10,11 @@
     box-shadow: 5px 5px 15px black;
     background-color: white;
     width: 550px;
+    
 }
 .containerPrincipal h1{
     color: black;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 .contanierData{
     padding: 10px;
