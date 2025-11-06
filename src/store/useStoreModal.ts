@@ -2,16 +2,16 @@ import { create } from "zustand";
 
 interface IUseStoreModal{
     view: boolean
-    viewScreen: boolean
+    viewScreen: string
     openView: VoidFunction
     closeView: VoidFunction 
-    setViewScreen: (option: boolean) => void
+    setViewScreen: (option: string) => void
 
 }
 
 const useStoreModal = create<IUseStoreModal>((set) => ({
     view: false,
-    viewScreen: false,
+    viewScreen: 'home',
 
     openView : () => set({view : true}),
     closeView: () => set({view: false}),

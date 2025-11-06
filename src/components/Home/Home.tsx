@@ -67,7 +67,7 @@ export const Home = () => {
             </div>
 
             <div className={style.summaryButton}>
-                <button onClick={() => setViewScreen(true)}>Resumenes</button>
+                <button onClick={() => setViewScreen('summaryScreen')}>Resumenes</button>
             </div>
 
             {movents.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }

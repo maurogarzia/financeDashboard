@@ -12,7 +12,7 @@ export const SummaryScreen = () =>{
         <div className={style.containerPrincipal}>
             <Header/>
             <div className={style.backButton}>
-                <button onClick={() => setViewScreen(false)}>
+                <button onClick={() => setViewScreen('home')}>
                     <span className="material-symbols-outlined">arrow_back</span>
                 </button>
             <SummaryOfMonths/>

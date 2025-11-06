@@ -1,0 +1,9 @@
+.containerPrincipal{
+    display: flex;
+    flex-direction: column;
+    min-width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(68, 68, 68);
+}
