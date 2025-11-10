@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router'
-import useStoreModal from '../../store/useStoreModal'
+
 import style from './Profile.module.css'
 
 export const Profile = () => {

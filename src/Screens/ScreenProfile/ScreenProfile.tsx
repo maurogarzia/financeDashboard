@@ -9,7 +9,7 @@ export const ScreenProfile = () => {
         <div className={style.containerPrincipal}>
             <Header/>
             <Profile/>
-            <InitSession/>
+            
         </div>
     )
 }
