@@ -3,14 +3,13 @@ import useStoreMovents from '../../store/useStoreMovents'
 import style from './Home.module.css'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
 import { TableOfMovents } from '../TableOfMovents/TableOfMovents'
-import useStoreModal from '../../store/useStoreModal'
+import { useNavigate } from 'react-router'
 
 
 export const Home = () => {
 
     const {movents} = useStoreMovents()
-    const {setViewScreen} = useStoreModal()
-    
+    const navigate = useNavigate()
 
     const [income, setIncome] = useState<number>(0)
     const [bills, setBills] = useState<number>(0)
@@ -46,7 +45,10 @@ export const Home = () => {
     },[movents])
 
     
-    
+    // Funcion que navega hacia la pagina de resumenes
+    const navigateFromSummary = () => {
+        navigate('summaryMovements')
+    }
 
 
     return (
@@ -67,7 +69,7 @@ export const Home = () => {
             </div>
 
             <div className={style.summaryButton}>
-                <button onClick={() => setViewScreen('summaryScreen')}>Resumenes</button>
+                <button onClick={navigateFromSummary}>Resumenes</button>
             </div>
 
             {movents.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }

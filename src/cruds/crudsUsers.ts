@@ -1,12 +1,13 @@
-import axios from "axios";
+
 import { ErrorAlert } from "../utils/ErrorAlert"
 import { BASE_URL } from "../utils/constantes";
+import axiosInstance from "../interceptors/axiosInstance";
 
 const URL_USERS = `${BASE_URL}/users`
 
 export const getAllUsers = async() => {
     try {
-        const users = await axios.get(URL_USERS)
+        const users = await axiosInstance.get(URL_USERS)
         return users.data
     } catch (error: any) {
         console.log(error.message);
@@ -16,7 +17,7 @@ export const getAllUsers = async() => {
 
 export const getUserById = async(id: string) => {
     try {
-        const user = await axios.get(`${URL_USERS}/${id}`)
+        const user = await axiosInstance.get(`${URL_USERS}/${id}`)
         return user.data
     } catch (error: any) {
         console.log(error.mesage);
@@ -26,7 +27,7 @@ export const getUserById = async(id: string) => {
 
 export const deleteUser = async(id : string) => {
     try {
-        const deletedUser = await axios.delete(`${URL_USERS}/${id}`)
+        const deletedUser = await axiosInstance.delete(`${URL_USERS}/${id}`)
         return deletedUser.data
     } catch (error: any) {
         console.log(error.message);

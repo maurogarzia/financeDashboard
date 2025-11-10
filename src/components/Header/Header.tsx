@@ -1,14 +1,18 @@
-import useStoreModal from '../../store/useStoreModal'
+import { useNavigate } from 'react-router'
 import style from './Header.module.css'
 
 export const Header = () => {
 
-    const {setViewScreen} = useStoreModal()
+    const navigate = useNavigate()
+
+    const navigateToProfile = () => {
+        navigate('/profile')
+    }
 
     return (
         <div className={style.containerPrincipal}>
             <h1>Gestión de Finanzas</h1>
-            <span onClick={() => setViewScreen('profile')} className="material-symbols-outlined">account_circle</span>
+            <span onClick={navigateToProfile} className="material-symbols-outlined">account_circle</span>
         </div>
     )
 }

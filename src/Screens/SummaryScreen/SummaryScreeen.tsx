@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router'
 import { AddMovents } from '../../components/AddMovents/AddMovents'
 import { Header } from '../../components/Header/Header'
 import { SummaryOfMonths } from '../../components/SummaryOfMonths/SummaryOfMonths'
@@ -6,13 +7,19 @@ import style from './SummaryScreen.module.css'
 
 export const SummaryScreen = () =>{
 
-    const {setViewScreen, view} = useStoreModal()
+    const navigate = useNavigate()
+    const {view} = useStoreModal()
+
+    // Funcion que navega al home
+    const navigateToProfile = () => {
+        navigate('/')
+    }
 
     return (
         <div className={style.containerPrincipal}>
             <Header/>
             <div className={style.backButton}>
-                <button onClick={() => setViewScreen('home')}>
+                <button onClick={navigateToProfile}>
                     <span className="material-symbols-outlined">arrow_back</span>
                 </button>
             <SummaryOfMonths/>
