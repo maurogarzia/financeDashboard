@@ -2,6 +2,7 @@ import style from './InitSession.module.css'
 import logo from '../../assets/google-icon-logo-svgrepo-com.svg'
 import { login } from '../../cruds/crudAuth'
 
+
 export const InitSession = () => {
 
     const handleLogin = () => {

@@ -10,23 +10,21 @@ interface IAuthCallback {
 
 export const AuthCallback : FC<IAuthCallback> = ({onAuthSuccess}) => {
     const navigate = useNavigate()
+    
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const token = params.get('token')
 
-        console.log(token);
-        
-
         if (token){
             localStorage.setItem('token', token) // Agrego el token
             axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
 
             onAuthSuccess(token)
             navigate('/')
 
         }
-
 
     },[navigate])
     return (

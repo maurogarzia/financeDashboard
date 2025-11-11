@@ -1,19 +1,16 @@
 import { useNavigate } from 'react-router'
 
 import style from './Profile.module.css'
+import { useStoreUser } from '../../store/useStoreUser';
 
 
 export const Profile = () => {
 
-    
-    
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(user.fullName);
-    
+    const {userLogged} = useStoreUser()
 
     const navigate = useNavigate()
 
-
+    
     const navigateToHome = () => {
         navigate('/')
     }
@@ -36,8 +33,8 @@ export const Profile = () => {
 
             <div className={style.containerName}>
                 <span className="material-symbols-outlined">account_circle</span>
-                <p>Mauro Garzia</p>
-                <p>(maurogarzia2@gmail.com)</p>
+                <p>{userLogged?.fullName}</p>
+                <p>({userLogged?.email})</p>
 
             </div>
 

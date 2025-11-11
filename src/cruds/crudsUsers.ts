@@ -25,6 +25,16 @@ export const getUserById = async(id: string) => {
     }
 }
 
+export const getUserLogged = async() => {
+    try {
+        const user = await axiosInstance.get(`${URL_USERS}/me`)
+        return user.data
+    } catch (error: any) {
+        console.log(error.messgae);
+        ErrorAlert('Ups!', 'No se pudo obtener el usuario logueado')
+    }
+}
+
 export const deleteUser = async(id : string) => {
     try {
         const deletedUser = await axiosInstance.delete(`${URL_USERS}/${id}`)
