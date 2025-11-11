@@ -32,7 +32,7 @@ export const Profile = () => {
             </div>
 
             <div className={style.containerName}>
-                <span className="material-symbols-outlined">account_circle</span>
+                <img src={userLogged?.avatar} alt="" />
                 <p>{userLogged?.fullName}</p>
                 <p>({userLogged?.email})</p>
 

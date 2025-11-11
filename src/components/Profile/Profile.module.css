@@ -20,10 +20,15 @@
     width: 100%;
     padding: 10px;
     display: flex;
-    
+    align-items:end;
     color: white;
     gap: 50px;
     border-bottom: 2px solid white;
+}
+.containerName img{
+    border-radius: 100%;
+    height: 80px;
+    width: 80px;
 }
 .contianerData{
     padding: 10px;
@@ -46,4 +51,14 @@
     color: white;
     cursor: pointer;
     transition: 0.3s ease;
+}
+
+@media (min-height: 800px) {
+    .containerName{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
 }
