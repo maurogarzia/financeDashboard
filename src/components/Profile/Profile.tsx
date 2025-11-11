@@ -10,6 +10,11 @@ export const Profile = () => {
         navigate('/')
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        window.dispatchEvent(new Event('storage')) // Forza re-render
+    }
+
     return (
         <div className={style.containerPrincipal}>
             
@@ -27,7 +32,7 @@ export const Profile = () => {
             </div>
 
             <div className={style.item}>
-                <button>Cerrar Sesion</button>
+                <button onClick={handleLogout}>Cerrar Sesion</button>
             </div>
         </div>
     )
