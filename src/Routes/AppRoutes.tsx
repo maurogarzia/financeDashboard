@@ -23,6 +23,10 @@ export const AppRoutes = () => {
 
     return (
         <Routes>
+
+            {/* Ruta de redireccion para token  */}
+            <Route path={'/auth/callback'} element={<AuthCallback onAuthSuccess={setToken}/>}/>
+
             {token 
             ? 
             <>
@@ -35,8 +39,6 @@ export const AppRoutes = () => {
                 {/* Resumenes por meses */}
                 <Route path={'/summaryMovements'} element={<SummaryScreen/>}/>
 
-                {/* Ruta de redireccion para token  */}
-                <Route path={'auth/callback'} element={<AuthCallback/>}/>
 
                 {/* Si intenta ir al login lo mando al home */}
                 <Route path={'/login'} element={<Navigate to="/login"/>}/>

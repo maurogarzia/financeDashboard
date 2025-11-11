@@ -2,9 +2,17 @@ import { useNavigate } from 'react-router'
 
 import style from './Profile.module.css'
 
+
 export const Profile = () => {
 
+    
+    
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(user.fullName);
+    
+
     const navigate = useNavigate()
+
 
     const navigateToHome = () => {
         navigate('/')
@@ -14,6 +22,8 @@ export const Profile = () => {
         localStorage.removeItem('token')
         window.dispatchEvent(new Event('storage')) // Forza re-render
     }
+
+    
 
     return (
         <div className={style.containerPrincipal}>
