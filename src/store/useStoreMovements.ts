@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 import { getAllMovementsForUsers, getAncientsForUser, getByTypeForUser, getMovementsOfMonth, getRecentsForUser } from "../cruds/crudMovements";
 
 
-interface IUseStoreMovents{
+interface IUseStoreMovements{
     movementsOfUser : IMovements[]
     activeMovement : IMovements | null
     listExpenses : IMovements[] | []
@@ -19,12 +19,12 @@ interface IUseStoreMovents{
     fetchListIncomes: (type: 'income') => void
     fetchListAncients: () => void
     fetchListRecents: () => void
-    fetchListmovementsOfmonth: () => void
+    fetchListMovementsOfmonth: () => void
 }
 
 
 
-const useStoreMovents = create<IUseStoreMovents>()(
+const useStoreMovements = create<IUseStoreMovements>()(
     persist((set) => ({
         movementsOfUser : [],
         activeMovement : null,
@@ -61,7 +61,7 @@ const useStoreMovents = create<IUseStoreMovents>()(
             set({listRecent : fetchedMovements})
         },
 
-        fetchListmovementsOfmonth: async() => {
+        fetchListMovementsOfmonth: async() => {
             const fetchedMovements = await getMovementsOfMonth()
             set({listMovementsOfMonth: fetchedMovements})
         }
@@ -72,4 +72,4 @@ const useStoreMovents = create<IUseStoreMovents>()(
 
 
 
-export default useStoreMovents
+export default useStoreMovements

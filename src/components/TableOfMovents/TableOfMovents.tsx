@@ -1,32 +1,45 @@
 import Swal from 'sweetalert2'
 import useStoreModal from '../../store/useStoreModal'
-import useStoreMovents from '../../store/useStoreMovements'
-import type { IMovents } from '../../types/IMovents'
 import style from './TableOfMovents.module.css'
 import { useEffect, useState } from 'react'
+import useStoreMovements from '../../store/useStoreMovements'
+import type { IMovements } from '../../types/IMovents'
+import { deleteMovement } from '../../cruds/crudMovements'
 
 export const TableOfMovents = () => {
 
     const {
-        movents, setLisIncome, setListExpenses, listExpenses, listIncome, setActiveMovent, deleteMovents, setListAncient, setListRecent, listAncient, listRecent, listMoventsOfMonth, setListMoventsOfMonths
-    } = useStoreMovents()
+        movementsOfUser,
+        fetchListIncomes, 
+        fetchListExpenses, 
+        listExpenses, 
+        listIncome, 
+        setActiveMovement,
+        fetchListAncients,
+        fetchListRecents, 
+        listAncient, 
+        listRecent, 
+        listMovementsOfMonth, 
+        fetchListMovementsOfmonth
+
+    } = useStoreMovements()
     const {openView} = useStoreModal()
 
     const [viewMovents, setViewMovents] = useState<string>('allsMovents')
     const [search, setSearch] = useState<string>('')
 
+
     // UseEffect para los filtros de ingresos y gastos
     useEffect(() => {
-        setLisIncome(),
-        setListExpenses(),
-        setListRecent(),
-        setListAncient(),
-        setListMoventsOfMonths()
-    },[movents])
-
+        fetchListIncomes('income'),
+        fetchListExpenses('expense'),
+        fetchListRecents(),
+        fetchListAncients(),
+        fetchListMovementsOfmonth()
+    },[])
 
     // Barra de bsuqueda
-    const listFilter = movents.filter((m) => {
+    const listFilter = movementsOfUser.filter((m) => {
         const term = search.toLocaleLowerCase()
         return (
             m.description.toLocaleLowerCase().includes(term) || 
@@ -36,13 +49,13 @@ export const TableOfMovents = () => {
         )
     })    
     
-    const handleEdit = (movent : IMovents) => {
-        setActiveMovent(movent)
+    const handleEdit = (movent : IMovements) => {
+        setActiveMovement(movent)
         openView()
     }
 
     const handleDelete = (id : string) => {
-        deleteMovents(id)
+        deleteMovement(id)
         Swal.fire({
             title : 'Eliminado',
             text : 'Se eliminó el movimiento',
@@ -78,7 +91,7 @@ export const TableOfMovents = () => {
 
 
             <div className={style.containerMovents}>
-                {listMoventsOfMonth.length < 1 && <p>No hay movimientos registrados</p>}
+                {listMovementsOfMonth.length < 1 && <p>No hay movimientos registrados</p>}
 
                 <table className={style.table}>
                     <thead>
@@ -95,9 +108,9 @@ export const TableOfMovents = () => {
 
                         {/* Todos los movimientos */}
 
-                        {(viewMovents === 'allsMovents' && search === '') && listMoventsOfMonth.map((m) => (
+                        {(viewMovents === 'allsMovents' && search === '') && listMovementsOfMonth.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
@@ -118,7 +131,7 @@ export const TableOfMovents = () => {
 
                         {(viewMovents === 'incomes' && search === '') && listIncome.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={style.income}>{m.type}</td>
                                     <td>$ {m.amount}</td>
@@ -138,7 +151,7 @@ export const TableOfMovents = () => {
                         {/* Gastos */}
                         {(viewMovents === 'expenses' && search === '') && listExpenses.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={ style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
@@ -158,7 +171,7 @@ export const TableOfMovents = () => {
                         {/* Mas antiguo */}
                         {(viewMovents === 'ancient' && search === '') && listAncient.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
@@ -178,7 +191,7 @@ export const TableOfMovents = () => {
                         {/* Mas reciente */}
                         {(viewMovents === 'recent' && search === '') && listRecent.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
@@ -198,7 +211,7 @@ export const TableOfMovents = () => {
                         {/* Barra de busqueda */}
                         {(search !== '') && listFilter.map((m) => (
                             <tr>
-                                <td className={style.date}>{m.date}</td>
+                                <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>

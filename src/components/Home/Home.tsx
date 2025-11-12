@@ -8,12 +8,16 @@ import { useNavigate } from 'react-router'
 
 export const Home = () => {
 
-    const {movents} = useStoreMovents()
+    const {movementsOfUser} = useStoreMovents()
     const navigate = useNavigate()
 
     const [income, setIncome] = useState<number>(0)
     const [bills, setBills] = useState<number>(0)
     const [balance, setBalance] = useState<number>(0)
+
+    useEffect(() => {
+        movementsOfUser
+    },[])
 
     useEffect(() => {
 
@@ -22,11 +26,11 @@ export const Home = () => {
             let billss = 0 
             let balances  = 0
     
-            movents.forEach(m => {
-                if (m.type === 'ingreso') {
+            movementsOfUser.forEach(m => {
+                if (m.type === 'income') {
                     incomes += m.amount
                     
-                } else if (m.type === 'gasto'){
+                } else if (m.type === 'expense'){
                     billss += m.amount
                 }
             })
@@ -42,7 +46,7 @@ export const Home = () => {
         }
 
         calculate()
-    },[movents])
+    },[movementsOfUser])
 
     
     // Funcion que navega hacia la pagina de resumenes
@@ -72,7 +76,7 @@ export const Home = () => {
                 <button onClick={navigateFromSummary}>Resumenes</button>
             </div>
 
-            {movents.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }
+            {movementsOfUser.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }
             
 
             <hr />
