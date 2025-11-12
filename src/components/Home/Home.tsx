@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import useStoreMovents from '../../store/useStoreMovents'
+import useStoreMovents from '../../store/useStoreMovements'
 import style from './Home.module.css'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
 import { TableOfMovents } from '../TableOfMovents/TableOfMovents'

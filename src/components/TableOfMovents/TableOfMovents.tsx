@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import useStoreModal from '../../store/useStoreModal'
-import useStoreMovents from '../../store/useStoreMovents'
+import useStoreMovents from '../../store/useStoreMovements'
 import type { IMovents } from '../../types/IMovents'
 import style from './TableOfMovents.module.css'
 import { useEffect, useState } from 'react'

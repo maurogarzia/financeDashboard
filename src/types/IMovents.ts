@@ -1,4 +1,4 @@
-export interface IMovents{
+export interface IMovements{
     id: string,
     date : string,
     description: string,

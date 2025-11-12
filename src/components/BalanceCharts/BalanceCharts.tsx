@@ -1,5 +1,5 @@
 import {PieChart, Pie, Cell, Tooltip, Legend} from "recharts"
-import useStoreMovents from "../../store/useStoreMovents"
+import useStoreMovents from "../../store/useStoreMovements"
 
 const COLORS = ["#4caf50", "#f44336"] // Verde ingresos, rojo gastos
 

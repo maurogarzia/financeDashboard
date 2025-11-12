@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import style from './AddMovents.module.css'
 import type { IMovents } from '../../types/IMovents'
-import useStoreMovents from '../../store/useStoreMovents'
+import useStoreMovents from '../../store/useStoreMovements'
 import useStoreModal from '../../store/useStoreModal'
 import Swal from 'sweetalert2'
 

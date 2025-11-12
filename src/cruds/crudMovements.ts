@@ -1,11 +1,12 @@
 
 import { BASE_URL } from "../utils/constantes"
 import { ErrorAlert } from "../utils/ErrorAlert"
-import type { IMovents } from "../types/IMovents"
+import type { IMovements } from "../types/IMovents"
 import axiosInstance from "../interceptors/axiosInstance"
 
 const URL_MOVEMENTS = `${BASE_URL}/movements`
 
+// Todos los movimientos
 export const getAllMovements = async() => {
     try {
         const movements = await axiosInstance.get(URL_MOVEMENTS)
@@ -16,6 +17,7 @@ export const getAllMovements = async() => {
     }
 }
 
+// Movimiento por id
 export const getById = async(id: string) => {
     try {
         const movement = await axiosInstance.get(`${URL_MOVEMENTS}/${id}`)
@@ -26,9 +28,32 @@ export const getById = async(id: string) => {
     }
 }
 
-export const getAncentsForUser = async(userId: string) => {
+// Todos los movimientos del usuario
+export const getAllMovementsForUsers = async() => {
     try {
-        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/${userId}/ancents`)
+        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/me`)
+        return movements.data
+    } catch (error: any) {
+        console.log(error.message);
+        ErrorAlert('Ups!', 'No se pudo obtener los movimientos')
+    }
+}
+
+// Movimientos del mes del usuario
+export const getMovementsOfMonth = async() => {
+    try {
+        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/me/ofTheMonth`)
+        return movements.data
+    } catch (error: any) {
+        console.log(error.message);
+        ErrorAlert('Ups!', 'No se pudo obtener los movimientos')
+    }
+}
+
+// Movimientos mas antiguos del usuario
+export const getAncientsForUser = async() => {
+    try {
+        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/ancents`)
         return movements.data
     } catch (error:any) {
         console.log(error.message);
@@ -36,9 +61,10 @@ export const getAncentsForUser = async(userId: string) => {
     }
 }
 
-export const getRecentsForUser = async(userId: string) => {
+// Movimientos mas recientes del usuario
+export const getRecentsForUser = async() => {
     try {
-        const movement = await axiosInstance.get(`${URL_MOVEMENTS}/${userId}/recents`)
+        const movement = await axiosInstance.get(`${URL_MOVEMENTS}/recents`)
         return movement.data
     } catch (error: any) {
         console.log(error.message);
@@ -46,7 +72,19 @@ export const getRecentsForUser = async(userId: string) => {
     }
 }
 
-export const createMovement = async(data: IMovents) => {
+// movimientos del usuario por typo (egreso o ingreso)
+export const getByTypeForUser = async( type: 'expense' | 'income') => {
+    try {
+        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/type/${type}`)
+        return movements.data
+    } catch (error: any) {
+        console.log(error.message);
+        ErrorAlert('Ups!', 'no se pudo obtener los movimientos')
+    }
+}
+
+// Crear movimiento
+export const createMovement = async(data: IMovements) => {
     try {
         const newMovement = await axiosInstance.post(`${URL_MOVEMENTS}`, data)
         return newMovement.data
@@ -56,7 +94,8 @@ export const createMovement = async(data: IMovents) => {
     }
 }
 
-export const updateMovement = async(data: IMovents, id: string) =>{
+// actualizar movimiento
+export const updateMovement = async(data: IMovements, id: string) =>{
     try {
         const editMovement = await axiosInstance.put(`${URL_MOVEMENTS}/${id}`, data)
         return editMovement.data
@@ -66,6 +105,7 @@ export const updateMovement = async(data: IMovents, id: string) =>{
     }
 }
 
+// eliminar movimiento
 export const deleteMovement = async(id: string) => {
     try {
         const deletedMovement = await axiosInstance.delete(`${URL_MOVEMENTS},${id}`)
