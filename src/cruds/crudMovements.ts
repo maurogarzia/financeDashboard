@@ -1,7 +1,7 @@
 
 import { BASE_URL } from "../utils/constantes"
 import { ErrorAlert } from "../utils/ErrorAlert"
-import type { IMovements } from "../types/IMovents"
+import type { IMovements } from "../types/IMovements"
 import axiosInstance from "../interceptors/axiosInstance"
 
 const URL_MOVEMENTS = `${BASE_URL}/movements`
@@ -86,8 +86,8 @@ export const getByTypeForUser = async( type: 'expense' | 'income') => {
 // Crear movimiento
 export const createMovement = async(data: IMovements) => {
     try {
-        const newMovement = await axiosInstance.post(`${URL_MOVEMENTS}`, data)
-        return newMovement.data
+        const newMovement = await axiosInstance.post(`${URL_MOVEMENTS}/`, data)
+        return newMovement.data 
     } catch (error: any) {
         console.log(error.message);
         ErrorAlert('Ups!', 'No se pudo crear el movimiento')
@@ -108,7 +108,7 @@ export const updateMovement = async(data: IMovements, id: string) =>{
 // eliminar movimiento
 export const deleteMovement = async(id: string) => {
     try {
-        const deletedMovement = await axiosInstance.delete(`${URL_MOVEMENTS},${id}`)
+        const deletedMovement = await axiosInstance.delete(`${URL_MOVEMENTS}/${id}`)
         return deletedMovement.data
     } catch (error: any) {
         console.log(error.message);

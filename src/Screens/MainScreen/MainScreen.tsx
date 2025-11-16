@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
-import { AddMovents } from '../../components/AddMovents/AddMovents'
+
 import { Header } from '../../components/Header/Header'
 import { Home } from '../../components/Home/Home'
 import useStoreModal from '../../store/useStoreModal'
 import { useStoreUser } from '../../store/useStoreUser'
 import style from './MainScreen.module.css'
+import { AddMovements } from '../../components/AddMovements/AddMovements'
+
+
 
 
 export const MainScreen = () => {
@@ -21,7 +24,7 @@ export const MainScreen = () => {
         <div className={style.containerPrincipal}>
             <Header/>
             <Home/>
-            {view && <div className={style.modalBackdrop}><AddMovents/></div>}
+            {view && <div className={style.modalBackdrop}><AddMovements/></div>}
         </div>
     )
 }

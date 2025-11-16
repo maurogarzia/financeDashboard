@@ -1,4 +1,4 @@
-import type { IMovents } from "../types/IMovents"
+import type { IMovents } from "../types/IMovements"
 
 export const calculate = (list : IMovents[]) => {
     let income = 0

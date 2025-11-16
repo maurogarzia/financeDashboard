@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2'
 import useStoreModal from '../../store/useStoreModal'
 import useStoreMovents from '../../store/useStoreMovements'
-import type { IMovents } from '../../types/IMovents'
+import type { IMovents } from '../../types/IMovements'
 import style from './SummaryOfMonths.module.css'
 
 import { calculate } from '../../utils/calculate'

@@ -1,5 +1,5 @@
 import { useState, type FC } from 'react'
-import type { IMovents } from '../../types/IMovents'
+import type { IMovents } from '../../types/IMovements'
 import style from './DownloadMovent.module.css'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'

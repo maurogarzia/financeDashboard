@@ -1,31 +1,34 @@
-import Swal from 'sweetalert2'
+
 import useStoreModal from '../../store/useStoreModal'
 import style from './TableOfMovents.module.css'
 import { useEffect, useState } from 'react'
 import useStoreMovements from '../../store/useStoreMovements'
-import type { IMovements } from '../../types/IMovents'
+import type { IMovements } from '../../types/IMovements'
 import { deleteMovement } from '../../cruds/crudMovements'
+import { SuccesAlert } from '../../utils/SuccesAlert'
+
 
 export const TableOfMovents = () => {
 
     const {
         movementsOfUser,
-        fetchListIncomes, 
-        fetchListExpenses, 
         listExpenses, 
         listIncome, 
-        setActiveMovement,
-        fetchListAncients,
-        fetchListRecents, 
         listAncient, 
         listRecent, 
         listMovementsOfMonth, 
+        fetchListIncomes, 
+        fetchListExpenses, 
+        setActiveMovement,
+        fetchListAncients,
+        fetchListRecents, 
         fetchListMovementsOfmonth
 
     } = useStoreMovements()
+
     const {openView} = useStoreModal()
 
-    const [viewMovents, setViewMovents] = useState<string>('allsMovents')
+    const [viewMovements, setViewMovements] = useState<string>('allsMovents')
     const [search, setSearch] = useState<string>('')
 
 
@@ -44,23 +47,20 @@ export const TableOfMovents = () => {
         return (
             m.description.toLocaleLowerCase().includes(term) || 
             m.type.toLocaleLowerCase().includes(term) || 
-            m.date.toLocaleLowerCase().includes(term) || 
+            String(m.date).toLocaleLowerCase().includes(term) || 
             String(m.amount).toLocaleLowerCase().includes(term)
         )
     })    
     
-    const handleEdit = (movent : IMovements) => {
-        setActiveMovement(movent)
+    const handleEdit = (movement : IMovements) => {
+        setActiveMovement(movement)
         openView()
     }
+    
 
     const handleDelete = (id : string) => {
         deleteMovement(id)
-        Swal.fire({
-            title : 'Eliminado',
-            text : 'Se eliminó el movimiento',
-            icon: 'success'
-        })
+        SuccesAlert('Eliminado', 'Se eliminó el movimeinto')
     }
 
     return (
@@ -79,11 +79,11 @@ export const TableOfMovents = () => {
                     <div className={style.buttons}>
 
                         <button onClick={() => {openView()}}>Agregar Movimiento</button>
-                        <button onClick={() => setViewMovents('allsMovents')}>Todos</button>
-                        <button onClick={() => setViewMovents('incomes')}>Ingresos</button>
-                        <button onClick={() => setViewMovents('expenses')}>Gastos</button>
-                        <button onClick={() => setViewMovents('ancient')}>Mas antiguo</button>
-                        <button onClick={() => setViewMovents('recent')}>Reciente</button>
+                        <button onClick={() => setViewMovements('allsMovents')}>Todos</button>
+                        <button onClick={() => setViewMovements('incomes')}>Ingresos</button>
+                        <button onClick={() => setViewMovements('expenses')}>Gastos</button>
+                        <button onClick={() => setViewMovements('ancient')}>Mas antiguo</button>
+                        <button onClick={() => setViewMovements('recent')}>Reciente</button>
                     </div>
                 </div>
 
@@ -108,18 +108,24 @@ export const TableOfMovents = () => {
 
                         {/* Todos los movimientos */}
 
-                        {(viewMovents === 'allsMovents' && search === '') && listMovementsOfMonth.map((m) => (
-                            <tr>
+                        {(viewMovements === 'allsMovents' && search === '') && listMovementsOfMonth.map((m) => (
+                            
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
+                                
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
+
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
+
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>
@@ -129,8 +135,8 @@ export const TableOfMovents = () => {
 
                         {/* Ingresos */}
 
-                        {(viewMovents === 'incomes' && search === '') && listIncome.map((m) => (
-                            <tr>
+                        {(viewMovements === 'incomes' && search === '') && listIncome.map((m) => (
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={style.income}>{m.type}</td>
@@ -140,7 +146,7 @@ export const TableOfMovents = () => {
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>
@@ -149,8 +155,8 @@ export const TableOfMovents = () => {
                         ))}
 
                         {/* Gastos */}
-                        {(viewMovents === 'expenses' && search === '') && listExpenses.map((m) => (
-                            <tr>
+                        {(viewMovements === 'expenses' && search === '') && listExpenses.map((m) => (
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
                                     <td className={ style.expense}>{m.type}</td>
@@ -160,7 +166,7 @@ export const TableOfMovents = () => {
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>
@@ -169,18 +175,18 @@ export const TableOfMovents = () => {
                         ))}
 
                         {/* Mas antiguo */}
-                        {(viewMovents === 'ancient' && search === '') && listAncient.map((m) => (
-                            <tr>
+                        {(viewMovements === 'ancient' && search === '') && listAncient.map((m) => (
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>
@@ -189,18 +195,18 @@ export const TableOfMovents = () => {
                         ))}
 
                         {/* Mas reciente */}
-                        {(viewMovents === 'recent' && search === '') && listRecent.map((m) => (
-                            <tr>
+                        {(viewMovements === 'recent' && search === '') && listRecent.map((m) => (
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>
@@ -210,17 +216,17 @@ export const TableOfMovents = () => {
 
                         {/* Barra de busqueda */}
                         {(search !== '') && listFilter.map((m) => (
-                            <tr>
+                            <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'ingreso' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
                                             <button className={style.edit} onClick={() => handleEdit(m)}>
                                                 <span className="material-symbols-outlined">edit</span>
                                             </button>
-                                            <button className={style.delete} onClick={() => handleDelete(m.id)}>
+                                            <button className={style.delete} onClick={() => handleDelete(m._id!)}>
                                                 <span className="material-symbols-outlined">delete</span>
                                             </button>
                                         </div>

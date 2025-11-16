@@ -1,10 +1,11 @@
-import type { IMovents } from "./IMovents"
+import type { IMovements } from "./IMovements"
+
 
 export interface IUser{
-    id: string
+    _id: string
     fullName: string,
     email: string,
     avatar: string,
-    movements: IMovents[],
+    movements: IMovements[],
     role: 'user' | 'admin'
 }
