@@ -16,13 +16,9 @@ export const TableOfMovents = () => {
         listIncome, 
         listAncient, 
         listRecent, 
-        listMovementsOfMonth, 
-        fetchListIncomes, 
-        fetchListExpenses, 
-        setActiveMovement,
-        fetchListAncients,
-        fetchListRecents, 
-        fetchListMovementsOfmonth
+        listMovementsOfMonth,
+        setActiveMovement, 
+        refreshAll
 
     } = useStoreMovements()
 
@@ -34,11 +30,7 @@ export const TableOfMovents = () => {
 
     // UseEffect para los filtros de ingresos y gastos
     useEffect(() => {
-        fetchListIncomes('income'),
-        fetchListExpenses('expense'),
-        fetchListRecents(),
-        fetchListAncients(),
-        fetchListMovementsOfmonth()
+        refreshAll()
     },[])
 
     // Barra de bsuqueda
@@ -60,6 +52,7 @@ export const TableOfMovents = () => {
 
     const handleDelete = (id : string) => {
         deleteMovement(id)
+        refreshAll()
         SuccesAlert('Eliminado', 'Se eliminó el movimeinto')
     }
 

@@ -86,7 +86,7 @@ export const getByTypeForUser = async( type: 'expense' | 'income') => {
 // Crear movimiento
 export const createMovement = async(data: IMovements) => {
     try {
-        const newMovement = await axiosInstance.post(`${URL_MOVEMENTS}/`, data)
+        const newMovement = await axiosInstance.post(`${URL_MOVEMENTS}`, data)
         return newMovement.data 
     } catch (error: any) {
         console.log(error.message);

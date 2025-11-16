@@ -24,7 +24,7 @@ export const AddMovements = () => {
         description:activeMovement?.description ?? '',
         type: activeMovement?.type || '',
         amount :activeMovement?.amount || 0,
-        userId: activeMovement?.userId || userLogged?._id!
+        
     })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -56,6 +56,7 @@ export const AddMovements = () => {
 
     const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault()
+
         try {
             if (activeMovement) {
                 updateMovement(movement, activeMovement._id!)
@@ -63,11 +64,11 @@ export const AddMovements = () => {
                 setActiveMovement(null)
                 SuccesAlert('Editado', 'Movimiento editado con éxito')
                 refreshAll()
+
             } else {
-                
-                createMovement(movement)
+                const {_id, ...movementToCreate} = movement
+                createMovement(movementToCreate)
                 closeView()
-                setActiveMovement(null)
                 SuccesAlert('Creado', 'Movimiento creado con éxito')
                 refreshAll()
             }
