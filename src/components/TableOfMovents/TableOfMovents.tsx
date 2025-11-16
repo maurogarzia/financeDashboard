@@ -18,7 +18,8 @@ export const TableOfMovents = () => {
         listRecent, 
         listMovementsOfMonth,
         setActiveMovement, 
-        refreshAll
+        refreshAll,
+        fetchListMovementsOfmonth
 
     } = useStoreMovements()
 
@@ -50,10 +51,10 @@ export const TableOfMovents = () => {
     }
     
 
-    const handleDelete = (id : string) => {
-        deleteMovement(id)
-        refreshAll()
+    const handleDelete = async(id : string) => {
+        await deleteMovement(id)
         SuccesAlert('Eliminado', 'Se eliminó el movimeinto')
+        refreshAll()
     }
 
     return (
