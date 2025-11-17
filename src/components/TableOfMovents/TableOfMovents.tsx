@@ -19,7 +19,6 @@ export const TableOfMovents = () => {
         listMovementsOfMonth,
         setActiveMovement, 
         refreshAll,
-        fetchListMovementsOfmonth
 
     } = useStoreMovements()
 

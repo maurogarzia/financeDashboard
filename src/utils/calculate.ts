@@ -1,13 +1,13 @@
-import type { IMovents } from "../types/IMovements"
+import type { IMovements} from "../types/IMovements"
 
-export const calculate = (list : IMovents[]) => {
+export const calculate = (list : IMovements[]) => {
     let income = 0
     let expense = 0
 
     list.forEach((f) => {
-        if (f.type === 'ingreso') {
+        if (f.type === 'income') {
             income += f.amount
-        } else if (f.type === 'gasto') {
+        } else if (f.type === 'expense') {
             expense += f.amount
         }
     })

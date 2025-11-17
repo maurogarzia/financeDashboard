@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { IMovements } from "../types/IMovements";
 import { persist } from "zustand/middleware";
-import { getAllMovementsForUsers, getAncientsForUser, getByTypeForUser, getMovementsOfMonth, getRecentsForUser } from "../cruds/crudMovements";
+import { getAllMovementsForUsers, getAncientsForUser, getByDate, getByTypeForUser, getMovementsOfMonth, getRecentsForUser } from "../cruds/crudMovements";
 
 
 interface IUseStoreMovements{
@@ -12,6 +12,7 @@ interface IUseStoreMovements{
     listAncient : IMovements[] | []
     listRecent : IMovements[] | []
     listMovementsOfMonth: IMovements[] | []
+    listOfMonthAndYear: IMovements[] | []
 
     fetchMovements : () => void
     setActiveMovement : (incommingMovement : IMovements | null) => void
@@ -20,6 +21,7 @@ interface IUseStoreMovements{
     fetchListAncients: () => void
     fetchListRecents: () => void
     fetchListMovementsOfmonth: () => void
+    fetchListMonthAndYear: (year: number, month: number) => void
 
     refreshAll: () => void
 }
@@ -35,6 +37,7 @@ const useStoreMovements = create<IUseStoreMovements>()(
         listAncient: [],
         listRecent: [],
         listMovementsOfMonth: [],
+        listOfMonthAndYear: [],
 
         fetchMovements: async() => {
             const fetchedMovements = await getAllMovementsForUsers() 
@@ -68,6 +71,11 @@ const useStoreMovements = create<IUseStoreMovements>()(
             set({listMovementsOfMonth: fetchedMovements})
         },
 
+        fetchListMonthAndYear: async(year, month) => {
+            const fetchedMovements = await getByDate(year, month)
+            set({listOfMonthAndYear: fetchedMovements})
+        },
+
         refreshAll: async() => {
             const [
                 expenses,
@@ -80,7 +88,7 @@ const useStoreMovements = create<IUseStoreMovements>()(
                 getByTypeForUser("income"),
                 getRecentsForUser(),
                 getAncientsForUser(),
-                getMovementsOfMonth()
+                getMovementsOfMonth(),
             ])
 
             set({
@@ -88,7 +96,7 @@ const useStoreMovements = create<IUseStoreMovements>()(
                 listIncome: incomes,
                 listRecent: recents,
                 listAncient: ancients,
-                listMovementsOfMonth: monthMovements
+                listMovementsOfMonth: monthMovements,
             })
         }
     }),

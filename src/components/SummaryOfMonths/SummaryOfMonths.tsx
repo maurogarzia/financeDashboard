@@ -1,142 +1,140 @@
-import Swal from 'sweetalert2'
-import useStoreModal from '../../store/useStoreModal'
-import useStoreMovents from '../../store/useStoreMovements'
-import type { IMovents } from '../../types/IMovements'
-import style from './SummaryOfMonths.module.css'
 
-import { calculate } from '../../utils/calculate'
+import useStoreModal from '../../store/useStoreModal'
+import style from './SummaryOfMonths.module.css'
+import { useEffect, useState } from 'react'
+import useStoreMovements from '../../store/useStoreMovements'
+import type { IMovements } from '../../types/IMovements'
+import { deleteMovement } from '../../cruds/crudMovements'
+import { SuccesAlert } from '../../utils/SuccesAlert'
 import { DownloadMovent } from '../DownloadMovent/DownloadMovent'
-import { useState } from 'react'
+import { calculate } from '../../utils/calculate'
+
 
 export const SummaryOfMonths = () => {
 
-    const {movents, setActiveMovent, deleteMovents} = useStoreMovents()
+    const {setActiveMovement, fetchListMonthAndYear, listOfMonthAndYear, refreshAll} = useStoreMovements() 
     const {openView} = useStoreModal()
 
+    
+    
+    const today = new Date() // Fecha de hoy
+    const currentYear = today.getFullYear()
+    const currentMonth = today.getMonth() + 1
+    
+    const yearsArray = Array.from({length: currentYear - 2019}, (_,i) => 2020 + i) // Array de anios
+    
+    // Valores inicales
+    const [year, setYear] = useState(currentYear) 
+    const [month, setMonth] = useState(currentMonth)
+    
+    useEffect(() => {
+        fetchListMonthAndYear(year, month)
+    },[year, month])
+    
+    
 
-    const [showMonth, setShowMonth] = useState<{ [key: string]: boolean }>({});
+    
+    const {expense, income, balance} = calculate(listOfMonthAndYear)
+    
 
     const months = [
-        ['Enero', '01'],
-        ['Febrero', '02'],
-        ['Marzo', '03'],
-        ['Abril', '04'],
-        ['Mayo', '05'],
-        ['Junio', '06'],
-        ['Julio', '07'],
-        ['Agosto', '08'],
-        ['Septiembre', '09'],
-        ['Octubre', '10'],
-        ['Noviembre', '11'],
-        ['Diciembre', '12']
-    ]
+        { value: 0, label: "Enero" },
+        { value: 1, label: "Febrero" },
+        { value: 2, label: "Marzo" },
+        { value: 3, label: "Abril" },
+        { value: 4, label: "Mayo" },
+        { value: 5, label: "Junio" },
+        { value: 6, label: "Julio" },
+        { value: 7, label: "Agosto" },
+        { value: 8, label: "Septiembre" },
+        { value: 9, label: "Octubre" },
+        { value: 10, label: "Noviembre" },
+        { value: 11, label: "Diciembre" }
+    ];
 
-    const handleEdit = (movent : IMovents) => {
-        setActiveMovent(movent)
+    const handleEdit= (movement: IMovements) => {
+        setActiveMovement(movement)
         openView()
     }
 
-    const handleDelete = (id : string) => {
-        deleteMovents(id)
-        Swal.fire({
-            title : 'Eliminado',
-            text : 'Se eliminó el movimiento',
-            icon: 'success'
-        })
+    const handleDelete = async(id: string) => {
+        await deleteMovement(id)
+        SuccesAlert('Eliminado', 'Se eliminó el movimeinto')
+        refreshAll()
     }
-
 
     return (
         <div className={style.containerPrincipal}>
-            {months.map((month) => {
-                // Filtro por mes
-                
-                const monthMovent = movents.filter((m) => m.date.split('-')[1] === month[1])
-                const {income, expense, balance} = calculate(monthMovent)
-                return (
-                    <div key={month[1]} className={style.containerMonths}>
+            
+            <select className={style.containerSelect} value={year} onChange={(e) => setYear(Number(e.target.value))}>
+                {yearsArray.map(y => (
+                    <option key={y} value={y}>{y}</option>
+                ))}
+            </select>
+            
+            
+            
+            <select className={style.containerSelect} value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+                {months.map(m => (
+                    <option key={m.value} value={m.value + 1}>{m.label}</option>
+                ))}
+            </select>
+            
 
-                        <h2 
-                        className={style.title}
-                        onClick={() => 
-                            setShowMonth(prev => ({
-                                ...prev,
-                                [month[1]] : !prev[month[1]]
-                            }))
-                        }>
-                            {month[0]}
-                            {showMonth[month[1]] 
-                                ? 
-                                    <span className="material-symbols-outlined">arrow_drop_down</span> 
-                                : 
-                                    <span className="material-symbols-outlined">arrow_left</span>}
+            <div className={style.containerMovements}>
+                {listOfMonthAndYear.length < 1
+                    ? 
+                        <p className={style.emptyList}>No hay movimientos</p>
+                    :
+                        <div className={style.containerMovement}>
+
+                            <div className={style.containerBalance}>
+                                <p>Gasto: $ {expense}</p>
+                                <p>Ingreso: $ {income}</p>
+                                <p>Balance: $ {balance}</p>
+                                <DownloadMovent resume={listOfMonthAndYear} income={income} expense={expense} balance={balance} year={year}/>
+                            </div>
                             
-                        </h2>
+                            <table className={style.table}>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Descripcion</th>
+                                        <th>Tipo</th>
+                                        <th>Monto</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
 
-                        {showMonth[month[1]] && (
-                            monthMovent.length < 1 
-                                ? 
-                                <div className={style.month}>
-                                    <p>No hay Movimientos</p>
-                                </div>
-                                : 
-                                <div className={`${style.moventsOfMonth} ${showMonth[month[1]] ? style.open : style.closed}`}>
+                                <tbody>
+                                    {listOfMonthAndYear.map(movement => (
 
-                                    <div className={style.resume}>
-                                        <p>Ingresos: $ {income}</p>
-                                        <p>Gastos : $ {expense}</p>
-                                        <p>Balance: $ {balance}</p>
-                                        <div style={{'width' : '100%', 'display' : 'flex', 'justifyContent' : 'center'}}>
-                                            <DownloadMovent resume={monthMovent} income={income} expense={expense} balance={balance}/>
-                                        </div>
-                                        
-                                    </div>
+                                        <tr>
+                                            <td>{String(movement.date).split('T')[0]}</td>
+                                            <td>{movement.description}</td>
+                                            <td className={movement.type === 'income' ? style.income : style.expense}>
+                                                {movement.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                            </td>
+                                            <td>{movement.amount}</td>
+                                            <td>
+                                                <div className={style.containerButtons}>
+                                                    <button className={style.edit} onClick={() => handleEdit(movement)}>
+                                                        <span className="material-symbols-outlined">edit</span>
+                                                    </button>
+                                                    <button className={style.delete} onClick={() => handleDelete(movement._id!)}>
+                                                        <span className="material-symbols-outlined">delete</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}                                        
 
-                                    {
-                                        monthMovent.map((movent) => (
-                                                
-                                            <table className={style.table}>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Descripcion</th>
-                                                        <th>Tipo</th>
-                                                        <th>Monto</th>
-                                                        <th>Opciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td className={style.date}>{movent.date}</td>
-                                                        <td>{movent.description}</td>
-                                                        <td className={movent.type === 'ingreso' ? style.income : style.expense}>{movent.type}</td>
-                                                        <td>{movent.amount}</td>
-                                                        <td>
-
-                                                            <div className={style.containerButtons}>
-                                                                <button className={style.edit} onClick={() => handleEdit(movent)}>
-                                                                    <span className="material-symbols-outlined">edit</span>
-                                                                </button>
-
-                                                                <button className={style.delete} onClick={() => handleDelete(movent.id)}>
-                                                                    <span className="material-symbols-outlined">delete</span>
-                                                                </button>
-                                                            </div>
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            
-                                        ))
-                                    }
-                                </div>
-
-                        )}
-                        
-                    </div>
-                )
-            })}
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                }
+            </div>
         </div>
     )
 }

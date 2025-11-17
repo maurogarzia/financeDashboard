@@ -79,7 +79,18 @@ export const getByTypeForUser = async( type: 'expense' | 'income') => {
         return movements.data
     } catch (error: any) {
         console.log(error.message);
-        ErrorAlert('Ups!', 'no se pudo obtener los movimientos')
+        ErrorAlert('Ups!', 'No se pudo obtener los movimientos')
+    }
+}
+
+// Movimientos de un mes y año especifico del usuario
+export const getByDate = async(year: number, month: number) => {
+    try {
+        const movements = await axiosInstance.get(`${URL_MOVEMENTS}/me/year/${year}/month/${month}`)
+        return movements.data
+    } catch (error: any) {
+        console.log(error.message);
+        ErrorAlert('Ups!', 'No se pudo obtener los movimientos')
     }
 }
 

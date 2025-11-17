@@ -1,19 +1,21 @@
-import { useState, type FC } from 'react'
-import type { IMovents } from '../../types/IMovements'
+import { type FC } from 'react'
+
 import style from './DownloadMovent.module.css'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import type { IMovements } from '../../types/IMovements'
 
 interface IDownloadMovent {
-    resume : IMovents[],
+    resume : IMovements[],
     balance: number,
     income: number,
-    expense: number
+    expense: number,
+    year: number
 }
 
-export const DownloadMovent: FC<IDownloadMovent> = ({resume, balance, income, expense}) => {
+export const DownloadMovent: FC<IDownloadMovent> = ({resume, balance, income, expense, year}) => {
 
-    const [title, setTitle] = useState<string>('mensual')
+    
 
     const months = [
         ['Enero', '01'],
@@ -30,17 +32,20 @@ export const DownloadMovent: FC<IDownloadMovent> = ({resume, balance, income, ex
         ['Diciembre', '12']
     ]
 
-    const month = resume[0].date.split('-')[1] // Mes
+    const month = String(resume[0].date).split('-')[1] // Mes
 
     // Funcion que creara el pedf
     const handleDownload = () => {
         const doc = new jsPDF()
 
+        // Nombre del mes que corresponde al PDF actual
+        const monthName = months.find(m => m[1] === month)?.[0] || "mensual";
+
         // Titulo
-        doc.setFontSize(18)
-        months.forEach((m) => m[1] === month && setTitle(m[0]))
         
-        doc.text(`Resumen ${title}`, 10, 15)
+        doc.setFontSize(18)
+        
+        doc.text(`Resumen ${monthName} ${year}`, 10, 15)
 
         // Linea separadora
         doc.line(10, 18, 200, 18)
@@ -49,10 +54,10 @@ export const DownloadMovent: FC<IDownloadMovent> = ({resume, balance, income, ex
         const head = [["Fecha", "Descripción", "Monto", "Tipo"]];
 
         const body = resume.map((movent) => [
-            movent.date,
+            String(movent.date).split('T')[0],
             movent.description,
             `$ ${movent.amount}`,
-            movent.type === 'ingreso' ? "Ingreso" : "Gasto"
+            movent.type === 'income' ? "Ingreso" : "Gasto"
         ])
 
         // Genero tabla
