@@ -1,13 +1,15 @@
 import style from './InitSession.module.css'
-import logo from '../../assets/google-icon-logo-svgrepo-com.svg'
-import { login } from '../../cruds/crudAuth'
+
+import axiosInstance from '../../interceptors/axiosInstance'
+import { GoogleLogin } from '@react-oauth/google'
+import { ErrorAlert } from '../../utils/ErrorAlert'
+import { useStoreUser } from '../../store/useStoreUser'
+
 
 
 export const InitSession = () => {
 
-    const handleLogin = () => {
-        login()
-    }
+    const {setUserLogged} = useStoreUser()
     
     return (
         <div className={style.containerPrincipal}>
@@ -16,10 +18,26 @@ export const InitSession = () => {
             <p>No hay sesión iniciada</p>
             <p>Para acceder debe iniciar sesión con google</p>
 
-            <button className={style.googleButton} onClick={handleLogin}>
-                <img className={style.img} src={logo} alt="" />
-                Iniciar sesión con Google
-            </button>
+            <GoogleLogin
+                onSuccess={async ({ credential }) => {
+                    try {
+                        
+                        const res = await axiosInstance.post("/auth/google", {
+                            token: credential
+                        });
+    
+                        localStorage.setItem("token", res.data.token);
+                        
+                        await setUserLogged()
+                        // Redirigir si quieres
+                        window.location.href = "/";
+                    } catch (error: any) {
+                        console.log(error.message);
+                        ErrorAlert('No se pudo iniciar sesión')
+                    }
+                }}
+                
+            />
         </div>
     )
 }

@@ -1,15 +1,20 @@
 import { Navigate, Route, Routes } from "react-router"
 import { MainScreen } from "../Screens/MainScreen/MainScreen"
 import { SummaryScreen } from "../Screens/SummaryScreen/SummaryScreeen"
-import { AuthCallback } from "../components/AuthCallback/AuthCallback"
 import { ScreenProfile } from "../Screens/ScreenProfile/ScreenProfile"
 import { InitSession } from "../components/InitSession/InitSession"
 import { useEffect, useState } from "react"
+import { useStoreUser } from "../store/useStoreUser"
 
 
 export const AppRoutes = () => {
 
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'))
+    const {setUserLogged} = useStoreUser()
+
+    useEffect(() => {
+        if (token) setUserLogged()
+    }, [token])
 
     useEffect(() => {
         const handleStorageChange = () => { 
@@ -23,10 +28,6 @@ export const AppRoutes = () => {
 
     return (
         <Routes>
-
-            {/* Ruta de redireccion para token  */}
-            <Route path={'/auth/callback'} element={<AuthCallback onAuthSuccess={setToken}/>}/>
-
             {token 
             ? 
             <>
@@ -41,7 +42,7 @@ export const AppRoutes = () => {
 
 
                 {/* Si intenta ir al login lo mando al home */}
-                <Route path={'/login'} element={<Navigate to="/login"/>}/>
+                <Route path={'/login'} element={<Navigate to="/"/>}/>
             </>
             
             : 

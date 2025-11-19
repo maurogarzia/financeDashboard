@@ -17,7 +17,7 @@ export const Home = () => {
 
     useEffect(() => {
         movementsOfUser
-    },[])
+    },[])   
 
     useEffect(() => {
 

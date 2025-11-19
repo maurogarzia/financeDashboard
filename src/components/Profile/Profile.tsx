@@ -17,6 +17,7 @@ export const Profile = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('user-storage')
         window.dispatchEvent(new Event('storage')) // Forza re-render
     }
 
