@@ -1,10 +1,10 @@
 
-import { BASE_URL } from "../utils/constantes"
+
 import { ErrorAlert } from "../utils/ErrorAlert"
 import type { IMovements } from "../types/IMovements"
 import axiosInstance from "../interceptors/axiosInstance"
 
-const URL_MOVEMENTS = `${BASE_URL}/movements`
+const URL_MOVEMENTS = `/movements`
 
 // Todos los movimientos
 export const getAllMovements = async() => {

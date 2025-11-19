@@ -1,9 +1,8 @@
 
 import { ErrorAlert } from "../utils/ErrorAlert"
-import { BASE_URL } from "../utils/constantes";
 import axiosInstance from "../interceptors/axiosInstance";
 
-const URL_USERS = `${BASE_URL}/users`
+const URL_USERS = `/users`
 
 export const getAllUsers = async() => {
     try {

@@ -5,8 +5,6 @@ import { GoogleLogin } from '@react-oauth/google'
 import { ErrorAlert } from '../../utils/ErrorAlert'
 import { useStoreUser } from '../../store/useStoreUser'
 
-
-
 export const InitSession = () => {
 
     const {setUserLogged} = useStoreUser()
@@ -29,7 +27,7 @@ export const InitSession = () => {
                         localStorage.setItem("token", res.data.token);
                         
                         await setUserLogged()
-                        // Redirigir si quieres
+                        
                         window.location.href = "/";
                     } catch (error: any) {
                         console.log(error.message);
