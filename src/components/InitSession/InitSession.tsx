@@ -10,7 +10,7 @@ export const InitSession = () => {
         login()
     }
     
-    console.log("CLIENT ID FRONT:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
+    
     return (
         <div className={style.containerPrincipal}>
             <h1>Iniciar Sesión</h1>
