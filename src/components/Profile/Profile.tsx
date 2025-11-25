@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router'
 
 import style from './Profile.module.css'
 import { useStoreUser } from '../../store/useStoreUser';
+import { useEffect, useState } from 'react';
 
 
 export const Profile = () => {
@@ -20,7 +21,13 @@ export const Profile = () => {
         localStorage.removeItem('user-storage')
         window.dispatchEvent(new Event('storage')) // Forza re-render
     }
+    
+    const [avatar, setAvatar] = useState<string>('')
+    useEffect(() => {
+        if (userLogged?.avatar) setAvatar(userLogged?.avatar)
+    },[]) 
 
+    console.log(avatar);
     
 
     return (
@@ -33,7 +40,7 @@ export const Profile = () => {
             </div>
 
             <div className={style.containerName}>
-                <img src={userLogged?.avatar} alt="" />
+                <img src={avatar}  referrerPolicy="no-referrer"/>
                 <p>{userLogged?.fullName}</p>
                 <p>({userLogged?.email})</p>
 

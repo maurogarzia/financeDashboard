@@ -5,6 +5,7 @@ import { ScreenProfile } from "../Screens/ScreenProfile/ScreenProfile"
 import { InitSession } from "../components/InitSession/InitSession"
 import { useEffect, useState } from "react"
 import { useStoreUser } from "../store/useStoreUser"
+import { LoginSuccess } from "../components/LoginSuccess/LoginSuccess"
 
 
 export const AppRoutes = () => {
@@ -43,6 +44,9 @@ export const AppRoutes = () => {
 
                 {/* Si intenta ir al login lo mando al home */}
                 <Route path={'/login'} element={<Navigate to="/"/>}/>
+
+                {/* Vista donde Google te redirige después de autenticarse */}
+                <Route path="/login-success" element={<LoginSuccess />} />
             </>
             
             : 
@@ -50,6 +54,9 @@ export const AppRoutes = () => {
             <>
                 {/* Login */}
                 <Route path={'/login'} element={<InitSession/>}/>
+
+                {/* Permito acceso temporal a login-success para recibir token */}
+                    <Route path="/login-success" element={<LoginSuccess />} />
 
                 {/* Si intenta ir a otra ruta lo mando al login */}
                 <Route path="*" element={<Navigate to={'/login'}/>}/>

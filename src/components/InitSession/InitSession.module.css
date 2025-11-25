@@ -24,3 +24,24 @@
     width: 35px;
     height: 35px;
 }
+.googleButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: none;
+}
+.googleButton p {
+    font-size: 15px;
+}
+.googleButton:hover{
+    background-color: white;
+    color: black;
+    transition: 0.3s ease;
+    transform: scale(1.1);
+}
