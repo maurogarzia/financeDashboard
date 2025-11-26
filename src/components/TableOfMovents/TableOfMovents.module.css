@@ -64,6 +64,9 @@
     background-color: white;
     padding: 2px;
 }
+.containerMovents{
+    text-align: center;
+}
 .table{
     margin-top: 20px;
     width: 100%;
