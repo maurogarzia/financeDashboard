@@ -53,7 +53,7 @@
     transition: 0.3s ease;
 }
 
-@media (min-height: 800px) {
+@media (max-width: 800px) {
     .containerName{
         display: flex;
         flex-direction: column;
