@@ -3,8 +3,8 @@
     flex-direction: column;
     width: 100%;
     margin-top: 10px;
+    min-height: 100vh;
     height: 100%;
-    
 }
 .containerTitleAndSearch{
     display: flex;
@@ -127,7 +127,6 @@
 
 @media (max-width: 800px) {
 
-    
     .containerTitleAndSearch{
         display: flex;
         flex-direction: column;
