@@ -82,13 +82,15 @@ const useStoreMovements = create<IUseStoreMovements>()(
                 incomes,
                 recents,
                 ancients,
-                monthMovements
+                monthMovements,
+                allMovements
             ] = await Promise.all([
                 getByTypeForUser("expense"),
                 getByTypeForUser("income"),
                 getRecentsForUser(),
                 getAncientsForUser(),
                 getMovementsOfMonth(),
+                getAllMovementsForUsers()
             ])
 
             set({
@@ -97,6 +99,7 @@ const useStoreMovements = create<IUseStoreMovements>()(
                 listRecent: recents,
                 listAncient: ancients,
                 listMovementsOfMonth: monthMovements,
+                movementsOfUser: allMovements
             })
         }
     }),

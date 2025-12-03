@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+
 
 import style from './Home.module.css'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
@@ -10,13 +10,12 @@ import useStoreMovements from '../../store/useStoreMovements'
 
 export const Home = () => {
 
-    const {movementsOfUser, refreshAll} = useStoreMovements()
+    const {movementsOfUser} = useStoreMovements()
     const navigate = useNavigate()
 
 
-    useEffect(() => {
-        refreshAll()
-    },[movementsOfUser])   
+    
+
     
     const {balance, expense, income} = calculate(movementsOfUser)
     
@@ -26,16 +25,13 @@ export const Home = () => {
         navigate('summaryMovements')
     }
 
-    console.log(movementsOfUser);
-    
-
 
     return (
         <div className={style.containerPrincipal}>
-            
             <h1>Balance General</h1>
 
             <div className={style.containerData}>
+                
                 <p>Ingresos: $ {income}</p>
 
                 <p>Gastos: $ {expense}</p>
