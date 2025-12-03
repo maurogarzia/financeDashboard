@@ -27,7 +27,7 @@ export const Profile = () => {
         if (userLogged?.avatar) setAvatar(userLogged?.avatar)
     },[]) 
 
-    console.log(avatar);
+    
     
 
     return (

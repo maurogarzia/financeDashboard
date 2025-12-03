@@ -5,18 +5,13 @@ import useStoreModal from '../../store/useStoreModal'
 import useStoreMovements from '../../store/useStoreMovements'
 import { createMovement, updateMovement } from '../../cruds/crudMovements'
 import { SuccesAlert } from '../../utils/SuccesAlert'
-import { useStoreUser } from '../../store/useStoreUser'
-
 
 
 export const AddMovements = () => {
 
     const {activeMovement, setActiveMovement, refreshAll} = useStoreMovements()
-    const {userLogged} = useStoreUser()
-    const {closeView} = useStoreModal()
-
-    console.log(userLogged);
     
+    const {closeView} = useStoreModal()
 
     const [movement, setMovement] = useState<IMovements>({
         _id:activeMovement?._id || null,

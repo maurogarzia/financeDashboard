@@ -5,10 +5,13 @@ export const calculate = (list : IMovements[]) => {
     let expense = 0
 
     list.forEach((f) => {
+
+        const amount = Number(f.amount)
+
         if (f.type === 'income') {
-            income += f.amount
+            income += amount
         } else if (f.type === 'expense') {
-            expense += f.amount
+            expense += amount
         }
     })
 

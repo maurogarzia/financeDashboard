@@ -1,58 +1,33 @@
-import { useEffect, useState } from 'react'
-import useStoreMovents from '../../store/useStoreMovements'
+import { useEffect } from 'react'
+
 import style from './Home.module.css'
 import { BalanceChart } from '../BalanceCharts/BalanceCharts'
 import { TableOfMovents } from '../TableOfMovents/TableOfMovents'
 import { useNavigate } from 'react-router'
+import { calculate } from '../../utils/calculate'
+import useStoreMovements from '../../store/useStoreMovements'
 
 
 export const Home = () => {
 
-    const {movementsOfUser} = useStoreMovents()
+    const {movementsOfUser, refreshAll} = useStoreMovements()
     const navigate = useNavigate()
 
-    const [income, setIncome] = useState<number>(0)
-    const [bills, setBills] = useState<number>(0)
-    const [balance, setBalance] = useState<number>(0)
 
     useEffect(() => {
-        movementsOfUser
-    },[])   
-
-    useEffect(() => {
-
-        const calculate = () => {
-            let incomes = 0
-            let billss = 0 
-            let balances  = 0
+        refreshAll()
+    },[movementsOfUser])   
     
-            movementsOfUser.forEach(m => {
-                if (m.type === 'income') {
-                    incomes += m.amount
-                    
-                } else if (m.type === 'expense'){
-                    billss += m.amount
-                }
-            })
-            
-            setIncome(incomes)
-            setBills(billss)
-
+    const {balance, expense, income} = calculate(movementsOfUser)
     
-            balances = incomes - billss
-
-            setBalance(balances)
-    
-        }
-
-        calculate()
-    },[movementsOfUser])
-
     
     // Funcion que navega hacia la pagina de resumenes
     const navigateFromSummary = () => {
         navigate('summaryMovements')
     }
+
+    console.log(movementsOfUser);
+    
 
 
     return (
@@ -63,7 +38,7 @@ export const Home = () => {
             <div className={style.containerData}>
                 <p>Ingresos: $ {income}</p>
 
-                <p>Gastos: $ {bills}</p>
+                <p>Gastos: $ {expense}</p>
 
                 <div className={style.containerBalance}>
                     <p>Balance: $ {balance.toFixed(2)}</p>

@@ -1,12 +1,13 @@
 import {PieChart, Pie, Cell, Tooltip, Legend} from "recharts"
-import useStoreMovents from "../../store/useStoreMovements"
+import useStoreMovements from "../../store/useStoreMovements"
+
 
 const COLORS = ["#4caf50", "#f44336"] // Verde ingresos, rojo gastos
 
 
 export const BalanceChart = () => {
 
-    const {movementsOfUser} = useStoreMovents()
+    const {movementsOfUser} = useStoreMovements()
 
 
     const totalIncome = movementsOfUser.filter((m) => m.type === 'income').reduce((acc, m) => acc + m.amount, 0)
@@ -19,7 +20,7 @@ export const BalanceChart = () => {
     ]
 
     return (
-        <PieChart width={400} height={400}>
+        <PieChart key={totalIncome + totalExpenses} width={400} height={400}>
             <Pie
                 data={data}
                 dataKey="value"
