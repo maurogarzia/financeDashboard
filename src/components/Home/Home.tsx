@@ -13,9 +13,6 @@ export const Home = () => {
     const {movementsOfUser} = useStoreMovements()
     const navigate = useNavigate()
 
-
-    
-
     
     const {balance, expense, income} = calculate(movementsOfUser)
     
@@ -44,7 +41,7 @@ export const Home = () => {
             </div>
 
             <div className={style.summaryButton}>
-                <button onClick={navigateFromSummary}>Resumenes</button>
+                <button onClick={navigateFromSummary}>Visitar Resumenes</button>
             </div>
 
             {movementsOfUser.length > 0 && <div className={style.containerPie}><BalanceChart/></div>  }

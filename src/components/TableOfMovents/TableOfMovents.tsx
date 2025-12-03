@@ -11,12 +11,12 @@ import { SuccesAlert } from '../../utils/SuccesAlert'
 export const TableOfMovents = () => {
 
     const {
+        listMovementsOfMonth,
         movementsOfUser,
         listExpenses, 
         listIncome, 
         listAncient, 
         listRecent, 
-        listMovementsOfMonth,
         setActiveMovement, 
         refreshAll,
 
@@ -24,7 +24,7 @@ export const TableOfMovents = () => {
 
     const {openView} = useStoreModal()
 
-    const [viewMovements, setViewMovements] = useState<string>('allsMovents')
+    const [viewMovements, setViewMovements] = useState<string>('allsMovements')
     const [search, setSearch] = useState<string>('')
 
 
@@ -49,6 +49,8 @@ export const TableOfMovents = () => {
         openView()
     }
     
+    console.log(listMovementsOfMonth);
+    
 
     const handleDelete = async(id : string) => {
         await deleteMovement(id)
@@ -72,7 +74,7 @@ export const TableOfMovents = () => {
                     <div className={style.buttons}>
 
                         <button onClick={() => {openView()}}>Agregar Movimiento</button>
-                        <button onClick={() => setViewMovements('allsMovents')}>Todos</button>
+                        <button onClick={() => setViewMovements('allsMovements')}>Todos</button>
                         <button onClick={() => setViewMovements('incomes')}>Ingresos</button>
                         <button onClick={() => setViewMovements('expenses')}>Gastos</button>
                         <button onClick={() => setViewMovements('ancient')}>Mas antiguo</button>
@@ -101,7 +103,7 @@ export const TableOfMovents = () => {
 
                         {/* Todos los movimientos */}
 
-                        {(viewMovements === 'allsMovents' && search === '') && listMovementsOfMonth.map((m) => (
+                        {(viewMovements === 'allsMovements' && search === '') && listMovementsOfMonth.map((m) => (
                             
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
@@ -132,7 +134,9 @@ export const TableOfMovents = () => {
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={style.income}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
@@ -152,7 +156,9 @@ export const TableOfMovents = () => {
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={ style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
@@ -172,7 +178,9 @@ export const TableOfMovents = () => {
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
@@ -192,7 +200,9 @@ export const TableOfMovents = () => {
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>
@@ -212,7 +222,9 @@ export const TableOfMovents = () => {
                             <tr key={m._id}>
                                 <td className={style.date}>{m.date.toString().split('T')[0]}</td>
                                     <td>{m.description}</td>
-                                    <td className={m.type === 'income' ? style.income : style.expense}>{m.type}</td>
+                                    <td className={m.type === 'income' ? style.income : style.expense}>
+                                        {m.type === 'income' ? 'Ingreso' : 'Gasto'}
+                                    </td>
                                     <td>$ {m.amount}</td>
                                     <td>
                                         <div className={style.containerButtons}>

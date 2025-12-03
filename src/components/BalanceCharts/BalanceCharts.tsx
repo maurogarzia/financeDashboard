@@ -9,9 +9,6 @@ const COLORS = ["#4caf50", "#f44336"] // Verde ingresos, rojo gastos
 export const BalanceChart = () => {
     const {movementsOfUser} = useStoreMovements()
 
-    
-
-
     const totalIncome = movementsOfUser.filter((m) => m.type === 'income').reduce((acc, m) => acc + m.amount, 0)
 
     const totalExpenses = movementsOfUser.filter((m) => m.type === 'expense').reduce((acc, m) => acc + m.amount, 0)
